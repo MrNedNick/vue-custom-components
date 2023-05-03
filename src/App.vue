@@ -1,7 +1,10 @@
 <template>
   <div id="app">
     <div class="form">
-      <InputComponent />
+      <InputComponent 
+        label='Label'
+        @updateInput="updateInput" 
+      />
       <SelectComponent />
     </div>
   </div>
@@ -17,6 +20,11 @@ export default {
     SelectComponent,
     InputComponent,
   },
+  methods: {
+    updateInput(value){
+      console.log(value);
+    }
+  }
 };
 </script>
 
@@ -31,6 +39,8 @@ export default {
 }
 .form {
   display: flex;
-  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 </style>
