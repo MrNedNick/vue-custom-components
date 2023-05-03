@@ -1,16 +1,21 @@
 <template>
   <div id="app">
-    <SelectComponent />
+    <div class="form">
+      <InputComponent />
+      <SelectComponent />
+    </div>
   </div>
 </template>
 
 <script>
+import InputComponent from './components/InputComponent.vue';
 import SelectComponent from "./components/SelectComponent.vue";
 
 export default {
   name: "App",
   components: {
     SelectComponent,
+    InputComponent,
   },
 };
 </script>
@@ -23,5 +28,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+.form {
+  display: flex;
+  margin: 0 auto;
 }
 </style>
