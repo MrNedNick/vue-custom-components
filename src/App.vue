@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <div class="form">
+      <h2>Input</h2>
       <InputComponent
         label="Label"
         placeholder="Placeholder"
@@ -16,12 +17,14 @@
         label="Label"
         placeholder="Placeholder"
         :error="true"
+        @updateInput="updateInput"
         class="component"
       />
       <InputComponent
         label="Label"
         placeholder="Placeholder"
         :valid="true"
+        @updateInput="updateInput"
         class="component"
       />
       <InputComponent
@@ -29,9 +32,10 @@
         placeholder="Placeholder"
         value=""
         :disabled="true"
+        @updateInput="updateInput"
         class="component"
       />
-
+      <h2>Select</h2>
       <SelectComponent
         label="Label"
         placeholder="Placeholder"
@@ -42,7 +46,49 @@
         @updateSelect="updateSelect"
         class="component"
         :items="selectItems"
+        :prepandIcon="prepandIconClass"
+      />
+      <SelectComponent
+        label="Label"
+        placeholder="Placeholder"
+        icon=""
+        @updateSelect="updateSelect"
+        class="component"
+        :items="selectItems"
         :default="selectItems[0]"
+        :prepandIcon="prepandIconClass"
+      />
+      <SelectComponent
+        label="Label"
+        placeholder="Placeholder"
+        :error="true"
+        icon=""
+        @updateSelect="updateSelect"
+        class="component"
+        :items="selectItems"
+        :default="selectItems[0]"
+        :prepandIcon="prepandIconClass"
+      />
+      <SelectComponent
+        label="Label"
+        placeholder="Placeholder"
+        :valid="true"
+        icon=""
+        @updateSelect="updateSelect"
+        class="component"
+        :items="selectItems"
+        :default="selectItems[0]"
+        :prepandIcon="prepandIconClass"
+      />
+      <SelectComponent
+        label="Label"
+        placeholder="Placeholder"
+        :disabled="true"
+        icon=""
+        @updateSelect="updateSelect"
+        class="component"
+        :items="selectItems"
+        :prepandIcon="prepandIconClass"
       />
     </div>
   </div>
@@ -69,6 +115,7 @@ export default {
         "Item 6",
         "Item 7",
       ],
+      prepandIconClass: 'mdi mdi-heart-outline',
     };
   },
   methods: {
@@ -101,6 +148,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  margin-bottom: 500px;
 }
 .component {
   margin-top: 30px;

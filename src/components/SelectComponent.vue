@@ -11,12 +11,17 @@
       @blur="inputBlur"
       @input="searchItems($event.target.value)"
     />
-    <label class="label" for="input">{{ label }}</label>
-    <i class="mdi mdi-chevron-down icon__chevron" @click="open = !open" />
+    <label class="input-select__label" for="input">{{ label }}</label>
+    <i :class="prepandIcon" class="input-select__icon-prepand" />
+    <i
+      class="mdi mdi-chevron-down input-select__icon-chevron"
+      :class="{ rotate: open }"
+      @click="open = !open"
+    />
+    <i v-if="valid" class="mdi mdi-check-circle input-select__icon-valid"></i>
     <p v-if="!error" class="input-select__helper-text">Helper text goes here</p>
     <p v-if="error" class="input-select__error-text">Something went wrong...</p>
-
-    <div class="select" :class="{ selectHide: !open }">
+    <div class="select" :class="{ hide: !open }">
       <div
         class="select__item"
         v-for="(item, index) of itemsCopy"
@@ -58,6 +63,9 @@ export default {
     disabled: {
       type: Boolean,
     },
+    prepandIcon: {
+      type: String,
+    },
   },
   data() {
     return {
@@ -91,6 +99,7 @@ export default {
     inputBlur() {
       setTimeout(() => {
         this.inputValue = this.selected;
+        this.itemsCopy = this.items;
         this.open = false;
       }, 100);
     },
@@ -122,12 +131,26 @@ export default {
   font-size: 16px;
   line-height: 19px;
   color: #abafb1;
-  padding: 20px 16px 5px 16px;
-  width: 374px;
+  padding: 20px 16px 5px 56px;
+  width: 334px;
   height: 28px;
   border-radius: 8px;
   border: 1px solid #cfd3d4;
   outline: none;
+  &__label {
+    position: absolute;
+    top: 7px;
+    left: 56px;
+    height: 100%;
+    pointer-events: none;
+    border: 1px solid transparent;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #5e6366;
+  }
   &::placeholder {
     color: #abafb1;
   }
@@ -184,32 +207,40 @@ export default {
     background-color: #f2f4f5;
     border: 1px solid #dde2e5;
   }
+  &__icon-valid {
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    left: 350px;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    color: rgba(50, 147, 111);
+  }
+  &__icon-chevron {
+    position: absolute;
+    z-index: 1;
+    top: 15px;
+    left: 375px;
+    width: 20px;
+    height: 25px;
+    font-size: 20px;
+    color: #5e6366;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  &__icon-prepand {
+    position: absolute;
+    z-index: 1;
+    top: 13px;
+    left: 16px;
+    width: 25px;
+    height: 25px;
+    font-size: 24px;
+    color: #5e6366;
+  }
 }
-.label {
-  position: absolute;
-  top: 7px;
-  left: 16px;
-  height: 100%;
-  pointer-events: none;
-  border: 1px solid transparent;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  color: #5e6366;
-}
-.icon__chevron {
-  position: absolute;
-  z-index: 1;
-  top: 15px;
-  left: 375px;
-  width: 20px;
-  height: 20px;
-  font-size: 20px;
-  color: #5e6366;
-  cursor: pointer;
-}
+
 .select {
   border-radius: 0px 0px 8px 8px;
   overflow: hidden;
@@ -219,7 +250,7 @@ export default {
   top: 55px;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 10;
   &__item {
     display: flex;
     align-items: center;
@@ -239,8 +270,10 @@ export default {
     }
   }
 }
-
-.selectHide {
+.hide {
   display: none;
+}
+.rotate {
+  transform: rotate(-180deg);
 }
 </style>
