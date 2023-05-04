@@ -1,15 +1,17 @@
 <template>
-  <div class="component">
-    <label for="input" class="component_label">{{ label }}</label>
-    <input 
+  <div class="wrapper">
+    <input
+      class="input"
+      :class="inputClass"
+      type="text"
       id="input"
-      placeholder=" "
-      type="text" 
-      class="input" 
+      :placeholder="placeholder"
       :value="value"
       @input="$emit('updateInput', $event.target.value)"
-    >
-    <i class="mdi mdi-cog"></i>
+    />
+    <label class="label" for="input">{{ label }}</label>
+    <i v-if="icon" :class="icon"></i>
+    <p v-if="error" class="input__error-text">{{ error }}</p>
   </div>
 </template>
 
@@ -19,29 +21,108 @@ export default {
   props: {
     value: {
       type: String,
-      default: '',
-    }, 
+    },
     label: {
       type: String,
-      default: '',
-    }
-  }
-}
+    },
+    placeholder: {
+      type: String,
+    },
+    icon: {
+      type: String,
+    },
+    error: {
+      type: String,
+    },
+    valid: {
+      type: Boolean,
+    },
+    disabled: {
+      type: Boolean,
+    },
+  },
+  computed: {
+    inputClass() {
+      return {
+        input__disabled: this.disabled,
+        input__error: this.error,
+        input__valid: this.valid,
+      };
+    },
+  },
+};
 </script>
 
 <style lang="scss">
-.component {
-  width: 375px;
-  height: 58px;
+.wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+.input {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #abafb1;
+  padding: 20px 16px 5px 16px;
+  width: 374px;
+  height: 28px;
   border-radius: 8px;
-  border: 1px solid black;
-  &_label {
-    font-family: 'Inter';
+  border: 1px solid #cfd3d4;
+  outline: none;
+  &::placeholder {
+    color: #abafb1;
+  }
+  &:focus {
+    color: #5e6366;
+    border: 1px solid #5570f1;
+  }
+  &:focus + .label {
+    color: #5570f1;
+  }
+  &:not(:placeholder-shown) {
+    font-weight: 400;
+    color: #5e6366;
+    border: 1px solid #5e6366;
+  }
+  &__error,
+  &__error:focus,
+  &__error:not(:placeholder-shown) {
+    border: 1px solid #f57e77;
+  }
+  &__error + .label,
+  &__error:focus + .label {
+    color: #f57e77;
+  }
+  &__error-text {
+    font-family: "Inter";
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
     line-height: 15px;
-    color: #5E6366;
+    color: #f57e77;
+    margin: 2px 0;
   }
+  &__disabled {
+    pointer-events: none;
+    background-color: #f2f4f5;
+  }
+}
+.label {
+  position: absolute;
+  top: 7px;
+  left: 16px;
+  height: 100%;
+  pointer-events: none;
+  border: 1px solid transparent;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #5e6366;
 }
 </style>

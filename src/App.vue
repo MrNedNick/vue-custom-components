@@ -1,8 +1,17 @@
 <template>
   <div id="app">
     <div class="form">
-      <InputComponent label="Label" @updateInput="updateInput" />
-      <SelectComponent />
+        <!-- icon="mdi mdi-plus" -->
+      <InputComponent
+        label="Label"
+        placeholder="Placeholder"
+        value=""
+        :disabled="false"
+        error="Something went wrong..."
+        icon=""
+        @updateInput="updateInput"
+      />
+      <SelectComponent style="margin-top: 40px"/>
     </div>
   </div>
 </template>
