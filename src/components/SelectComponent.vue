@@ -1,26 +1,25 @@
 <template>
   <div class="wrapper">
-    <!-- {{ selected }} -->
-    <!-- @blur="open = false" -->
     <input
       class="input-select"
       :class="inputClass"
       type="text"
       id="input"
       :placeholder="placeholder"
-      :value="selected"
-      @click="open = !open"
-      @blur="closeMenu"
-      @focus="inputFocus"
+      :value="inputValue"
+      @click="onClickInput"
+      @blur="inputBlur"
+      @input="searchItems($event.target.value)"
     />
     <label class="label" for="input">{{ label }}</label>
     <i class="mdi mdi-chevron-down icon__chevron" @click="open = !open" />
-    <p class="input-select__helper-text">Helper text goes here</p>
+    <p v-if="!error" class="input-select__helper-text">Helper text goes here</p>
+    <p v-if="error" class="input-select__error-text">Something went wrong...</p>
 
     <div class="select" :class="{ selectHide: !open }">
       <div
         class="select__item"
-        v-for="(item, index) of items"
+        v-for="(item, index) of itemsCopy"
         :key="index"
         @click="onClickItem(item)"
       >
@@ -39,16 +38,6 @@ export default {
       required: true,
     },
     default: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    tabindex: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    value: {
       type: String,
     },
     label: {
@@ -74,38 +63,47 @@ export default {
     return {
       open: false,
       selected: "",
+      inputValue: "",
+      itemsCopy: [],
     };
   },
   computed: {
-    // selected() {
-    //   return this.default
-    //     ? this.default
-    //     : this.options.length > 0
-    //     ? this.options[0]
-    //     : null;
-    // },
     inputClass() {
       return {
-        input__disabled: this.disabled,
-        input__error: this.error,
-        input__valid: this.valid,
+        "input-select__disabled": this.disabled,
+        "input-select__error": this.error,
+        "input-select__valid": this.valid,
       };
     },
+  },
+  mounted() {
+    this.inputValue = this.default;
+    this.selected = this.default;
+    this.itemsCopy = this.items;
   },
   methods: {
     onClickItem(item) {
       this.selected = item;
+      this.inputValue = item;
       this.open = false;
       this.$emit("updateSelect", item);
     },
-    closeMenu() {
+    inputBlur() {
       setTimeout(() => {
+        this.inputValue = this.selected;
         this.open = false;
       }, 100);
     },
-    inputFocus() {
-      this.selected = '';
-    }
+    onClickInput() {
+      this.open = !this.open;
+      this.inputValue = "";
+    },
+    searchItems(value) {
+      this.inputValue = value;
+      this.itemsCopy = this.items.filter((item) =>
+        item.toLowerCase().includes(value)
+      );
+    },
   },
 };
 </script>
@@ -133,7 +131,6 @@ export default {
   &::placeholder {
     color: #abafb1;
   }
-
   &:not(:placeholder-shown) {
     font-weight: 400;
     color: #5e6366;
@@ -154,6 +151,15 @@ export default {
   &__error + .label,
   &__error:focus + .label {
     color: #f57e77;
+  }
+  &__error-text {
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #f57e77;
+    margin: 2px 0;
   }
   &__helper-text {
     font-family: "Inter";

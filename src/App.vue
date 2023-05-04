@@ -35,7 +35,6 @@
       <SelectComponent
         label="Label"
         placeholder="Placeholder"
-        value=""
         :disabled="false"
         :error="false"
         :valid="false"
