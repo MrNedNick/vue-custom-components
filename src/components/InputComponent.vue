@@ -10,8 +10,8 @@
       @input="$emit('updateInput', $event.target.value)"
     />
     <label class="label" for="input">{{ label }}</label>
-    <i v-if="icon" :class="icon"></i>
-    <p v-if="error" class="input__error-text">{{ error }}</p>
+    <i v-if="valid" class="mdi mdi-check-circle icon__valid"></i>
+    <p v-if="error" class="input__error-text">Something went wrong...</p>
   </div>
 </template>
 
@@ -32,7 +32,7 @@ export default {
       type: String,
     },
     error: {
-      type: String,
+      type: Boolean,
     },
     valid: {
       type: Boolean,
@@ -76,17 +76,18 @@ export default {
   &::placeholder {
     color: #abafb1;
   }
+
+  &:not(:placeholder-shown) {
+    font-weight: 400;
+    color: #5e6366;
+    border: 1px solid #5e6366;
+  }
   &:focus {
     color: #5e6366;
     border: 1px solid #5570f1;
   }
   &:focus + .label {
     color: #5570f1;
-  }
-  &:not(:placeholder-shown) {
-    font-weight: 400;
-    color: #5e6366;
-    border: 1px solid #5e6366;
   }
   &__error,
   &__error:focus,
@@ -106,6 +107,15 @@ export default {
     color: #f57e77;
     margin: 2px 0;
   }
+  &__valid,
+  &__valid:focus,
+  &__valid:not(:placeholder-shown) {
+    border: 1px solid #32936f;
+  }
+  &__valid + .label,
+  &__valid:focus + .label {
+    color: #32936f;
+  }
   &__disabled {
     pointer-events: none;
     background-color: #f2f4f5;
@@ -124,5 +134,15 @@ export default {
   font-size: 12px;
   line-height: 15px;
   color: #5e6366;
+}
+.icon__valid {
+  position: absolute;
+  z-index: 1;
+  top: 15px;
+  left: 375px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  color: rgba(50, 147, 111);
 }
 </style>

@@ -1,17 +1,36 @@
 <template>
   <div id="app">
     <div class="form">
-        <!-- icon="mdi mdi-plus" -->
       <InputComponent
         label="Label"
         placeholder="Placeholder"
         value=""
         :disabled="false"
-        error="Something went wrong..."
+        :error="false"
+        :valid="false"
         icon=""
         @updateInput="updateInput"
+        class="component"
       />
-      <SelectComponent style="margin-top: 40px"/>
+      <InputComponent
+        label="Label"
+        placeholder="Placeholder"
+        :error="true"
+        class="component"
+      />
+      <InputComponent
+        label="Label"
+        placeholder="Placeholder"
+        :valid="true"
+        class="component"
+      />
+      <InputComponent
+        label="Label"
+        placeholder="Placeholder"
+        :disabled="true"
+        class="component"
+      />
+      <SelectComponent class="component" />
     </div>
   </div>
 </template>
@@ -50,5 +69,8 @@ $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dis
   align-items: center;
   justify-content: center;
   flex-direction: column;
+}
+.component {
+  margin-top: 30px;
 }
 </style>
