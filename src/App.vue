@@ -1,17 +1,14 @@
 <template>
   <div id="app">
     <div class="form">
-      <InputComponent 
-        label='Label'
-        @updateInput="updateInput" 
-      />
+      <InputComponent label="Label" @updateInput="updateInput" />
       <SelectComponent />
     </div>
   </div>
 </template>
 
 <script>
-import InputComponent from './components/InputComponent.vue';
+import InputComponent from "./components/InputComponent.vue";
 import SelectComponent from "./components/SelectComponent.vue";
 
 export default {
@@ -21,14 +18,16 @@ export default {
     InputComponent,
   },
   methods: {
-    updateInput(value){
+    updateInput(value) {
       console.log(value);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style lang="scss">
+$material-design-icons-font-directory-path: "~material-design-icons-iconfont/dist/fonts/";
+@import "~material-design-icons-iconfont/src/material-design-icons";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

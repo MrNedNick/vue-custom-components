@@ -1,12 +1,15 @@
 <template>
   <div class="component">
-    <span class="component_label">{{ label }}</span>
+    <label for="input" class="component_label">{{ label }}</label>
     <input 
+      id="input"
+      placeholder=" "
       type="text" 
       class="input" 
       :value="value"
       @input="$emit('updateInput', $event.target.value)"
     >
+    <i class="mdi mdi-cog"></i>
   </div>
 </template>
 
