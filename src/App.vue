@@ -27,10 +27,24 @@
       <InputComponent
         label="Label"
         placeholder="Placeholder"
+        value=""
         :disabled="true"
         class="component"
       />
-      <SelectComponent class="component" />
+
+      <SelectComponent
+        label="Label"
+        placeholder="Placeholder"
+        value=""
+        :disabled="false"
+        :error="false"
+        :valid="false"
+        icon=""
+        @updateSelect="updateSelect"
+        class="component"
+        :items="selectItems"
+        :default="selectItems[0]"
+      />
     </div>
   </div>
 </template>
@@ -45,8 +59,24 @@ export default {
     SelectComponent,
     InputComponent,
   },
+  data() {
+    return {
+      selectItems: [
+        "Item 1",
+        "Item 2",
+        "Item 3",
+        "Item 4",
+        "Item 5",
+        "Item 6",
+        "Item 7",
+      ],
+    };
+  },
   methods: {
     updateInput(value) {
+      console.log(value);
+    },
+    updateSelect(value) {
       console.log(value);
     },
   },
@@ -63,6 +93,9 @@ $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dis
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+body {
+  font-family: "Inter";
 }
 .form {
   display: flex;

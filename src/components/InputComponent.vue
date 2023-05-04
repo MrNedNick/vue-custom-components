@@ -119,6 +119,7 @@ export default {
   &__disabled {
     pointer-events: none;
     background-color: #f2f4f5;
+    border: 1px solid #DDE2E5;
   }
 }
 .label {
