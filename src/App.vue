@@ -90,6 +90,9 @@
         :items="selectItems"
         :prepandIcon="prepandIconClass"
       />
+      <FileInputComponent 
+        class="component"
+      />
     </div>
   </div>
 </template>
@@ -97,12 +100,14 @@
 <script>
 import InputComponent from "./components/InputComponent.vue";
 import SelectComponent from "./components/SelectComponent.vue";
+import FileInputComponent from "./components/FileInputComponent.vue";
 
 export default {
   name: "App",
   components: {
     SelectComponent,
     InputComponent,
+    FileInputComponent,
   },
   data() {
     return {
