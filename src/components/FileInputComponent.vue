@@ -61,11 +61,11 @@ export default {
   flex-direction: column;
   align-items: start;
 }
-.input-file {
-  opacity: 0;
-  visibility: hidden;
-  position: absolute;
-}
+// .input-file {
+//   opacity: 0;
+//   visibility: hidden;
+//   position: absolute;
+// }
 
 .input {
   font-family: "Inter";

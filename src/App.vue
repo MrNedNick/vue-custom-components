@@ -90,9 +90,12 @@
         :items="selectItems"
         :prepandIcon="prepandIconClass"
       />
-      <FileInputComponent 
-        class="component"
-      />
+      <h2>File Input</h2>
+      <FileInputComponent class="component" />
+      <h2>Date Picker</h2>
+      <DatePickerComponent class="component" />
+      <h2>Checkboxes</h2>
+      <CheckboxComponent class="component" />
     </div>
   </div>
 </template>
@@ -101,6 +104,8 @@
 import InputComponent from "./components/InputComponent.vue";
 import SelectComponent from "./components/SelectComponent.vue";
 import FileInputComponent from "./components/FileInputComponent.vue";
+import DatePickerComponent from "./components/DatePickerComponent.vue";
+import CheckboxComponent from "./components/CheckboxComponent.vue";
 
 export default {
   name: "App",
@@ -108,6 +113,8 @@ export default {
     SelectComponent,
     InputComponent,
     FileInputComponent,
+    DatePickerComponent,
+    CheckboxComponent,
   },
   data() {
     return {
@@ -120,7 +127,7 @@ export default {
         "Item 6",
         "Item 7",
       ],
-      prepandIconClass: 'mdi mdi-heart-outline',
+      prepandIconClass: "mdi mdi-heart-outline",
     };
   },
   methods: {
