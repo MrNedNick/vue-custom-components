@@ -5,8 +5,9 @@
       <input
         class="checkbox__input"
         type="checkbox"
-        checked="checked"
-        value="one"
+        :value="value"
+        :checked="checked"
+        @change="$emit('updateCheckbox', $event.target.checked, $event.target.value)"
       />
       <span class="checkbox__checkmark"></span>
     </label>
@@ -17,6 +18,9 @@
 export default {
   name: "ChekboxComponent",
   props: {
+    checked: {
+      type: Boolean,
+    },
     value: {
       type: String,
     },
@@ -24,6 +28,11 @@ export default {
       type: String,
     },
   },
+  methods: {
+    onChange(checked, value) {
+      console.log(`${value}: ${checked}`)
+    }
+  }
 };
 </script>
 

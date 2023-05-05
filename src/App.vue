@@ -93,7 +93,10 @@
       <h2>Checkboxes</h2>
       <CheckboxComponent 
         label="item 1"
+        value="first"
+        :checked="true"
         class="component" 
+        @updateCheckbox="updateCheckbox"
       />
       <h2>File Input</h2>
       <FileInputComponent class="component" />
@@ -139,6 +142,9 @@ export default {
     },
     updateSelect(value) {
       console.log(value);
+    },
+    updateCheckbox(checked, value) {
+      console.log(`${value}: ${checked}`)
     },
   },
 };
