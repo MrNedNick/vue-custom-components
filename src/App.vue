@@ -90,12 +90,15 @@
         :items="selectItems"
         :prepandIcon="prepandIconClass"
       />
+      <h2>Checkboxes</h2>
+      <CheckboxComponent 
+        label="item 1"
+        class="component" 
+      />
       <h2>File Input</h2>
       <FileInputComponent class="component" />
       <h2>Date Picker</h2>
       <DatePickerComponent class="component" />
-      <h2>Checkboxes</h2>
-      <CheckboxComponent class="component" />
     </div>
   </div>
 </template>
