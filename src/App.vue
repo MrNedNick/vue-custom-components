@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="form">
-      <h2>Input: {{ formData.name }}</h2>
+      <h2 class="title">Input: {{ formData.name }}</h2>
       <InputComponent
         label="Label"
         placeholder="Placeholder"
@@ -9,7 +9,7 @@
         v-model="formData.name"
         class="component"
       />
-      <h2>Select</h2>
+      <h2 class="title">Select</h2>
       <SelectComponent
         label="Label"
         placeholder="Placeholder"
@@ -22,7 +22,7 @@
         :items="selectItems"
         :prepandIcon="prepandIconClass"
       />
-      <h2>Checkboxes</h2>
+      <h2 class="title">Checkboxes</h2>
       <CheckboxComponent
         label="item 1"
         value="first"
@@ -30,9 +30,9 @@
         class="component"
         @updateCheckbox="updateCheckbox"
       />
-      <h2>File Input</h2>
+      <h2 class="title">File Input</h2>
       <FileInputComponent class="component" />
-      <h2>Date Picker</h2>
+      <h2 class="title">Date Picker</h2>
       <DatePickerComponent class="component" />
     </div>
   </div>
@@ -117,7 +117,10 @@ body {
   flex-direction: column;
   margin-bottom: 500px;
 }
-.component {
-  margin-top: 30px;
-}
+// .component {
+//   margin: 0px;
+// }
+// .title {
+//   display: block;
+// }
 </style>

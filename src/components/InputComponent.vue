@@ -10,8 +10,8 @@
       @keydown.enter.prevent="onEnter"
       :value="value"
     />
-    <label class="label" for="input">{{ label }}</label>
-    <p v-if="isShowAutocomplete" class="autocomplete">
+    <label class="input__label" for="input">{{ label }}</label>
+    <p v-if="isShowAutocomplete" class="input__autocomplete">
       {{ filteredOptions[0] }}
     </p>
     <i v-if="valid" class="mdi mdi-check-circle icon__valid"></i>
@@ -109,6 +109,31 @@ export default {
   border-radius: 8px;
   border: 1px solid #cfd3d4;
   outline: none;
+  &__label {
+    position: absolute;
+    top: 7px;
+    left: 16px;
+    height: 100%;
+    pointer-events: none;
+    border: 1px solid transparent;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #5e6366;
+  }
+  &__autocomplete {
+    position: absolute;
+    top: 11px;
+    left: 17px;
+    font-family: "Inter";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: rgba(94, 99, 102, 0.3);
+  }
   &::placeholder {
     color: #abafb1;
   }
@@ -158,20 +183,6 @@ export default {
     border: 1px solid #dde2e5;
   }
 }
-.label {
-  position: absolute;
-  top: 7px;
-  left: 16px;
-  height: 100%;
-  pointer-events: none;
-  border: 1px solid transparent;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  color: #5e6366;
-}
 .icon__valid {
   position: absolute;
   z-index: 1;
@@ -181,16 +192,5 @@ export default {
   height: 20px;
   font-size: 20px;
   color: rgba(50, 147, 111);
-}
-.autocomplete {
-  position: absolute;
-  top: 11px;
-  left: 17px;
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 19px;
-  color: rgba(94, 99, 102, 0.3);
 }
 </style>
