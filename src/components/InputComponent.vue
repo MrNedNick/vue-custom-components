@@ -41,10 +41,12 @@ export default {
     disabled: {
       type: Boolean,
     },
+    autocoplete: {
+      type: Array,
+    },
   },
   data() {
     return {
-      options: ["apple", "banana", "cherry", "durian", "elderberry"],
       inputValue: "",
       filteredOptions: [],
     };
@@ -55,9 +57,9 @@ export default {
   computed: {
     inputClass() {
       return {
-        'input__disabled': this.disabled,
-        'input__error': this.error,
-        'input__valid': this.valid,
+        input__disabled: this.disabled,
+        input__error: this.error,
+        input__valid: this.valid,
       };
     },
     isShowAutocomplete() {
@@ -67,9 +69,11 @@ export default {
   methods: {
     onInput(value) {
       this.inputValue = value;
-      this.filteredOptions = this.options.filter((option) =>
-        option.includes(this.inputValue)
-      );
+      if (this.autocoplete) {
+        this.filteredOptions = this.autocoplete.filter((option) =>
+          option.startsWith(this.inputValue)
+        );
+      }
       this.$emit("input", this.inputValue);
     },
     onEnter() {

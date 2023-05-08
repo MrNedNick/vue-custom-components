@@ -5,6 +5,7 @@
       <InputComponent
         label="Label"
         placeholder="Placeholder"
+        :autocoplete="autocompleteOptions"
         v-model="formData.name"
         class="component"
       />
@@ -62,6 +63,7 @@ export default {
         avatar: "",
         checkbox: "",
       },
+      prepandIconClass: "mdi mdi-heart-outline",
       selectItems: [
         "Item 1",
         "Item 2",
@@ -71,7 +73,13 @@ export default {
         "Item 6",
         "Item 7",
       ],
-      prepandIconClass: "mdi mdi-heart-outline",
+      autocompleteOptions: [
+        "apple",
+        "banana",
+        "cherry",
+        "durian",
+        "elderberry",
+      ],
     };
   },
   methods: {
