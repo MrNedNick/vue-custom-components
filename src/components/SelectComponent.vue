@@ -94,7 +94,7 @@ export default {
       this.selected = item;
       this.inputValue = item;
       this.open = false;
-      this.$emit("updateSelect", item);
+      this.$emit(item);
     },
     inputBlur() {
       setTimeout(() => {
@@ -122,7 +122,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 .input-select {
   font-family: "Inter";

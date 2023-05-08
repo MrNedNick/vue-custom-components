@@ -7,7 +7,7 @@
       id="input"
       :placeholder="placeholder"
       :value="value"
-      @input="$emit('updateInput', $event.target.value)"
+      @input="$emit('input', $event.target.value)"
     />
     <label class="label" for="input">{{ label }}</label>
     <i v-if="valid" class="mdi mdi-check-circle icon__valid"></i>
@@ -44,9 +44,9 @@ export default {
   computed: {
     inputClass() {
       return {
-        input__disabled: this.disabled,
-        input__error: this.error,
-        input__valid: this.valid,
+        'input__disabled': this.disabled,
+        'input__error': this.error,
+        'input__valid': this.valid,
       };
     },
   },
@@ -58,7 +58,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 .input {
   font-family: "Inter";
@@ -119,7 +119,7 @@ export default {
   &__disabled {
     pointer-events: none;
     background-color: #f2f4f5;
-    border: 1px solid #DDE2E5;
+    border: 1px solid #dde2e5;
   }
 }
 .label {

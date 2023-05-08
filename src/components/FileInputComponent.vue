@@ -45,9 +45,9 @@ export default {
   computed: {
     inputClass() {
       return {
-        input__disabled: this.disabled,
-        input__error: this.error,
-        input__valid: this.valid,
+        'input__disabled': this.disabled,
+        'input__error': this.error,
+        'input__valid': this.valid,
       };
     },
   },
@@ -59,7 +59,7 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 // .input-file {
 //   opacity: 0;

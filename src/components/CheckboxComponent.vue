@@ -52,7 +52,7 @@ export default {
     font-size: 16px;
     line-height: 19px;
     text-align: right;
-    color: #2b2f32;
+    color: #131414;
   }
   &__input {
     position: absolute;

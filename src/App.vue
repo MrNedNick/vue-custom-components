@@ -5,15 +5,15 @@
       <InputComponent
         label="Label"
         placeholder="Placeholder"
-        value=""
         :disabled="false"
         :error="false"
         :valid="false"
         icon=""
         @updateInput="updateInput"
+        v-model="formdata.name"
         class="component"
       />
-      <InputComponent
+      <!-- <InputComponent
         label="Label"
         placeholder="Placeholder"
         :error="true"
@@ -30,11 +30,10 @@
       <InputComponent
         label="Label"
         placeholder="Placeholder"
-        value=""
         :disabled="true"
         @updateInput="updateInput"
         class="component"
-      />
+      /> -->
       <h2>Select</h2>
       <SelectComponent
         label="Label"
@@ -91,11 +90,11 @@
         :prepandIcon="prepandIconClass"
       />
       <h2>Checkboxes</h2>
-      <CheckboxComponent 
+      <CheckboxComponent
         label="item 1"
         value="first"
         :checked="true"
-        class="component" 
+        class="component"
         @updateCheckbox="updateCheckbox"
       />
       <h2>File Input</h2>
@@ -116,7 +115,6 @@ import CheckboxComponent from "./components/CheckboxComponent.vue";
 export default {
   name: "App",
   components: {
-    SelectComponent,
     InputComponent,
     FileInputComponent,
     DatePickerComponent,
@@ -124,6 +122,13 @@ export default {
   },
   data() {
     return {
+      formData: {
+        name: "",
+        country: "",
+        data: "",
+        avatar: "",
+        checkbox: "",
+      },
       selectItems: [
         "Item 1",
         "Item 2",
@@ -137,14 +142,14 @@ export default {
     };
   },
   methods: {
-    updateInput(value) {
-      console.log(value);
+    updateInput() {
+      console.log(this.formData);
     },
     updateSelect(value) {
       console.log(value);
     },
     updateCheckbox(checked, value) {
-      console.log(`${value}: ${checked}`)
+      console.log(`${value}: ${checked}`);
     },
   },
 };
