@@ -123,6 +123,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 374px;
 }
 .input-select {
   font-family: "Inter";
@@ -132,8 +133,8 @@ export default {
   line-height: 19px;
   color: #abafb1;
   padding: 20px 16px 5px 56px;
-  width: 334px;
-  height: 28px;
+  min-width: 301px;
+  min-height: 31px;
   border-radius: 8px;
   border: 1px solid #cfd3d4;
   outline: none;
@@ -221,7 +222,7 @@ export default {
     position: absolute;
     z-index: 1;
     top: 15px;
-    left: 375px;
+    left: 345px;
     width: 20px;
     height: 25px;
     font-size: 20px;

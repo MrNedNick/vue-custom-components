@@ -6,12 +6,16 @@
       type="text"
       id="input"
       :placeholder="placeholder"
+      @input="onInput($event.target.value)"
+      @keydown.enter.prevent="onEnter"
       :value="value"
-      @input="$emit('input', $event.target.value)"
     />
     <label class="label" for="input">{{ label }}</label>
+    <p v-if="isShowAutocomplete" class="autocomplete">
+      {{ filteredOptions[0] }}
+    </p>
     <i v-if="valid" class="mdi mdi-check-circle icon__valid"></i>
-    <p v-if="error" class="input__error-text">Something went wrong...</p>
+    <p v-if="error" class="input__error-text">{{ error }}</p>
   </div>
 </template>
 
@@ -28,11 +32,8 @@ export default {
     placeholder: {
       type: String,
     },
-    icon: {
-      type: String,
-    },
     error: {
-      type: Boolean,
+      type: String,
     },
     valid: {
       type: Boolean,
@@ -41,13 +42,41 @@ export default {
       type: Boolean,
     },
   },
+  data() {
+    return {
+      options: ["apple", "banana", "cherry", "durian", "elderberry"],
+      inputValue: "",
+      filteredOptions: [],
+    };
+  },
+  mounted() {
+    this.inputValue = this.value;
+  },
   computed: {
     inputClass() {
       return {
-        input__disabled: this.disabled,
-        input__error: this.error,
-        input__valid: this.valid,
+        'input__disabled': this.disabled,
+        'input__error': this.error,
+        'input__valid': this.valid,
       };
+    },
+    isShowAutocomplete() {
+      return this.filteredOptions.length > 0 && this.inputValue !== "";
+    },
+  },
+  methods: {
+    onInput(value) {
+      this.inputValue = value;
+      this.filteredOptions = this.options.filter((option) =>
+        option.includes(this.inputValue)
+      );
+      this.$emit("input", this.inputValue);
+    },
+    onEnter() {
+      if (this.filteredOptions.length > 0) {
+        this.inputValue = this.filteredOptions[0];
+        this.$emit("input", this.inputValue);
+      }
     },
   },
 };
@@ -143,10 +172,21 @@ export default {
   position: absolute;
   z-index: 1;
   top: 15px;
-  left: 375px;
+  left: 340px;
   width: 20px;
   height: 20px;
   font-size: 20px;
   color: rgba(50, 147, 111);
+}
+.autocomplete {
+  position: absolute;
+  top: 11px;
+  left: 17px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: rgba(94, 99, 102, 0.3);
 }
 </style>

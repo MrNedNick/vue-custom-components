@@ -5,10 +5,6 @@
       <InputComponent
         label="Label"
         placeholder="Placeholder"
-        :disabled="false"
-        :error="false"
-        :valid="false"
-        icon=""
         v-model="formData.name"
         class="component"
       />
