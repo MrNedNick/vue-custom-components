@@ -10,30 +10,9 @@
         :valid="false"
         icon=""
         @updateInput="updateInput"
-        v-model="formdata.name"
+        v-model="formData.name"
         class="component"
       />
-      <!-- <InputComponent
-        label="Label"
-        placeholder="Placeholder"
-        :error="true"
-        @updateInput="updateInput"
-        class="component"
-      />
-      <InputComponent
-        label="Label"
-        placeholder="Placeholder"
-        :valid="true"
-        @updateInput="updateInput"
-        class="component"
-      />
-      <InputComponent
-        label="Label"
-        placeholder="Placeholder"
-        :disabled="true"
-        @updateInput="updateInput"
-        class="component"
-      /> -->
       <h2>Select</h2>
       <SelectComponent
         label="Label"
@@ -41,48 +20,6 @@
         :disabled="false"
         :error="false"
         :valid="false"
-        icon=""
-        @updateSelect="updateSelect"
-        class="component"
-        :items="selectItems"
-        :prepandIcon="prepandIconClass"
-      />
-      <SelectComponent
-        label="Label"
-        placeholder="Placeholder"
-        icon=""
-        @updateSelect="updateSelect"
-        class="component"
-        :items="selectItems"
-        :default="selectItems[0]"
-        :prepandIcon="prepandIconClass"
-      />
-      <SelectComponent
-        label="Label"
-        placeholder="Placeholder"
-        :error="true"
-        icon=""
-        @updateSelect="updateSelect"
-        class="component"
-        :items="selectItems"
-        :default="selectItems[0]"
-        :prepandIcon="prepandIconClass"
-      />
-      <SelectComponent
-        label="Label"
-        placeholder="Placeholder"
-        :valid="true"
-        icon=""
-        @updateSelect="updateSelect"
-        class="component"
-        :items="selectItems"
-        :default="selectItems[0]"
-        :prepandIcon="prepandIconClass"
-      />
-      <SelectComponent
-        label="Label"
-        placeholder="Placeholder"
-        :disabled="true"
         icon=""
         @updateSelect="updateSelect"
         class="component"
@@ -116,6 +53,7 @@ export default {
   name: "App",
   components: {
     InputComponent,
+    SelectComponent,
     FileInputComponent,
     DatePickerComponent,
     CheckboxComponent,
