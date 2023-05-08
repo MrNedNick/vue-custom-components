@@ -10,6 +10,9 @@
       @click="onClickInput"
       @blur="inputBlur"
       @input="searchItems($event.target.value)"
+      @keydown.arrow-down="onArrowDown"
+      @keydown.arrow-up="onArrowUp"
+      @keydown.enter.prevent="onEnter($event.target.value)"
     />
     <label class="input-select__label" for="input">{{ label }}</label>
     <i :class="prepandIcon" class="input-select__icon-prepand" />
@@ -20,10 +23,11 @@
     />
     <i v-if="valid" class="mdi mdi-check-circle input-select__icon-valid"></i>
     <p v-if="!error" class="input-select__helper-text">Helper text goes here</p>
-    <p v-if="error" class="input-select__error-text">Something went wrong...</p>
+    <p v-if="error" class="input-select__error-text">{{ error }}</p>
     <div class="select" :class="{ hide: !open }">
       <div
         class="select__item"
+        :class="{ active: index === activeItemIndex }"
         v-for="(item, index) of itemsCopy"
         :key="index"
         @click="onClickItem(item)"
@@ -42,7 +46,7 @@ export default {
       type: Array,
       required: true,
     },
-    default: {
+    value: {
       type: String,
     },
     label: {
@@ -51,11 +55,8 @@ export default {
     placeholder: {
       type: String,
     },
-    icon: {
-      type: String,
-    },
     error: {
-      type: Boolean,
+      type: String,
     },
     valid: {
       type: Boolean,
@@ -73,6 +74,7 @@ export default {
       selected: "",
       inputValue: "",
       itemsCopy: [],
+      activeItemIndex: -1,
     };
   },
   computed: {
@@ -85,8 +87,8 @@ export default {
     },
   },
   mounted() {
-    this.inputValue = this.default;
-    this.selected = this.default;
+    this.inputValue = this.value;
+    this.selected = this.value;
     this.itemsCopy = this.items;
   },
   methods: {
@@ -94,7 +96,8 @@ export default {
       this.selected = item;
       this.inputValue = item;
       this.open = false;
-      this.$emit(item);
+      this.activeItemIndex = -1;
+      this.$emit("input", item);
     },
     inputBlur() {
       setTimeout(() => {
@@ -108,10 +111,29 @@ export default {
       this.inputValue = "";
     },
     searchItems(value) {
+      this.open = true;
       this.inputValue = value;
       this.itemsCopy = this.items.filter((item) =>
         item.toLowerCase().includes(value)
       );
+    },
+    onArrowDown() {
+      if (this.activeItemIndex < this.itemsCopy.length - 1) {
+        this.activeItemIndex++;
+      }
+    },
+    onArrowUp() {
+      if (this.activeItemIndex > 0) {
+        this.activeItemIndex--;
+      }
+    },
+    onEnter(item) {
+      console.log(item);
+      this.inputValue = this.itemsCopy[this.activeItemIndex];
+      this.selected = this.itemsCopy[this.activeItemIndex];
+      this.open = false;
+      this.activeItemIndex = -1;
+      this.$emit("input", this.inputValue);
     },
   },
 };
@@ -164,7 +186,7 @@ export default {
     color: #5e6366;
     border: 1px solid #5570f1;
   }
-  &:focus + .label {
+  &:focus + &__label {
     color: #5570f1;
   }
   &__error,
@@ -172,8 +194,8 @@ export default {
   &__error:not(:placeholder-shown) {
     border: 1px solid #f57e77;
   }
-  &__error + .label,
-  &__error:focus + .label {
+  &__error + &__label,
+  &__error:focus + &__label {
     color: #f57e77;
   }
   &__error-text {
@@ -199,8 +221,8 @@ export default {
   &__valid:not(:placeholder-shown) {
     border: 1px solid #32936f;
   }
-  &__valid + .label,
-  &__valid:focus + .label {
+  &__valid + &__label,
+  &__valid:focus + &__label {
     color: #32936f;
   }
   &__disabled {
@@ -212,7 +234,7 @@ export default {
     position: absolute;
     z-index: 1;
     top: 15px;
-    left: 350px;
+    left: 320px;
     width: 20px;
     height: 20px;
     font-size: 20px;
@@ -241,7 +263,6 @@ export default {
     color: #5e6366;
   }
 }
-
 .select {
   border-radius: 0px 0px 8px 8px;
   overflow: hidden;
@@ -267,7 +288,7 @@ export default {
     height: 39px;
     width: 100%;
     &:hover {
-      background-color: #d8dfff;
+      background-color: #eee;
     }
   }
 }
@@ -276,5 +297,8 @@ export default {
 }
 .rotate {
   transform: rotate(-180deg);
+}
+.active {
+  background-color: #eee;
 }
 </style>

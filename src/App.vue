@@ -9,20 +9,30 @@
         v-model="formData.name"
         class="component"
       />
-      <h2 class="title">Select</h2>
+      <h2 class="title">Select: {{ formData.country }}</h2>
       <SelectComponent
         label="Label"
         placeholder="Placeholder"
-        :disabled="false"
-        :error="false"
-        :valid="false"
-        icon=""
-        @updateSelect="updateSelect"
         class="component"
         :items="selectItems"
         :prepandIcon="prepandIconClass"
+        v-model="formData.country"
       />
       <h2 class="title">Checkboxes</h2>
+      <CheckboxComponent
+        label="item 1"
+        value="first"
+        :checked="true"
+        class="component"
+        @updateCheckbox="updateCheckbox"
+      />
+      <CheckboxComponent
+        label="item 1"
+        value="first"
+        :checked="true"
+        class="component"
+        @updateCheckbox="updateCheckbox"
+      />
       <CheckboxComponent
         label="item 1"
         value="first"
@@ -58,21 +68,13 @@ export default {
     return {
       formData: {
         name: "",
-        country: "",
+        country: "apple",
         data: "",
         avatar: "",
         checkbox: "",
       },
       prepandIconClass: "mdi mdi-heart-outline",
-      selectItems: [
-        "Item 1",
-        "Item 2",
-        "Item 3",
-        "Item 4",
-        "Item 5",
-        "Item 6",
-        "Item 7",
-      ],
+      selectItems: ["apple", "banana", "cherry", "durian", "elderberry"],
       autocompleteOptions: [
         "apple",
         "banana",
