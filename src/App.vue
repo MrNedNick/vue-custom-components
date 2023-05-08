@@ -18,28 +18,38 @@
         :prepandIcon="prepandIconClass"
         v-model="formData.country"
       />
-      <h2 class="title">Checkboxes</h2>
-      <CheckboxComponent
-        label="item 1"
-        value="first"
-        :checked="true"
-        class="component"
-        @updateCheckbox="updateCheckbox"
-      />
-      <CheckboxComponent
-        label="item 1"
-        value="first"
-        :checked="true"
-        class="component"
-        @updateCheckbox="updateCheckbox"
-      />
-      <CheckboxComponent
-        label="item 1"
-        value="first"
-        :checked="true"
-        class="component"
-        @updateCheckbox="updateCheckbox"
-      />
+      <h2 class="title">Checkboxes: {{ formData.checkboxes }}</h2>
+      <!-- <CheckboxGroup
+        :checkBoxes="formData.checkboxes"
+        @onChange="updateCheckbox"
+      /> -->
+      <div class="checkbox-group">
+        <CheckboxComponent
+          label="Apple"
+          value="apple"
+          v-model="formData.checkboxes"
+        />
+        <CheckboxComponent
+          label="Banana"
+          value="banana"
+          v-model="formData.checkboxes"
+        />
+        <CheckboxComponent
+          label="Cherry"
+          value="cherry"
+          v-model="formData.checkboxes"
+        />
+        <CheckboxComponent
+          label="Durian"
+          value="durian"
+          v-model="formData.checkboxes"
+        />
+        <CheckboxComponent
+          label="Berry"
+          value="berry"
+          v-model="formData.checkboxes"
+        />
+      </div>
       <h2 class="title">File Input</h2>
       <FileInputComponent class="component" />
       <h2 class="title">Date Picker</h2>
@@ -54,6 +64,7 @@ import SelectComponent from "./components/SelectComponent.vue";
 import FileInputComponent from "./components/FileInputComponent.vue";
 import DatePickerComponent from "./components/DatePickerComponent.vue";
 import CheckboxComponent from "./components/CheckboxComponent.vue";
+import CheckboxGroup from "./components/CheckboxGroup.vue";
 
 export default {
   name: "App",
@@ -63,6 +74,7 @@ export default {
     FileInputComponent,
     DatePickerComponent,
     CheckboxComponent,
+    CheckboxGroup,
   },
   data() {
     return {
@@ -71,7 +83,7 @@ export default {
         country: "apple",
         data: "",
         avatar: "",
-        checkbox: "",
+        checkboxes: [],
       },
       prepandIconClass: "mdi mdi-heart-outline",
       selectItems: ["apple", "banana", "cherry", "durian", "elderberry"],
@@ -91,8 +103,8 @@ export default {
     updateSelect(value) {
       console.log(value);
     },
-    updateCheckbox(checked, value) {
-      console.log(`${value}: ${checked}`);
+    updateCheckbox(value) {
+      this.formData.checkboxes = value;
     },
   },
 };

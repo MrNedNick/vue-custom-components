@@ -6,8 +6,8 @@
         class="checkbox__input"
         type="checkbox"
         :value="value"
-        :checked="checked"
-        @change="$emit('updateCheckbox', $event.target.checked, $event.target.value)"
+        :checked="isChecked"
+        @change="updateInput"
       />
       <span class="checkbox__checkmark"></span>
     </label>
@@ -17,22 +17,53 @@
 <script>
 export default {
   name: "ChekboxComponent",
+  model: {
+    prop: "modelValue",
+    event: "change",
+  },
   props: {
-    checked: {
-      type: Boolean,
-    },
     value: {
       type: String,
     },
+    modelValue: {
+      default: "",
+    },
     label: {
       type: String,
+      required: true,
+    },
+    trueValue: {
+      default: true,
+    },
+    falseValue: {
+      default: false,
+    },
+  },
+  computed: {
+    isChecked() {
+      if (this.modelValue instanceof Array) {
+        return this.modelValue.includes(this.value);
+      }
+      // Note that `true-value` and `false-value` are camelCase in the JS
+      return this.modelValue === this.trueValue;
     },
   },
   methods: {
-    onChange(checked, value) {
-      console.log(`${value}: ${checked}`)
-    }
-  }
+    updateInput(event) {
+      let isChecked = event.target.checked;
+      if (this.modelValue instanceof Array) {
+        let newValue = [...this.modelValue];
+        if (isChecked) {
+          newValue.push(this.value);
+        } else {
+          newValue.splice(newValue.indexOf(this.value), 1);
+        }
+        this.$emit("change", newValue);
+      } else {
+        this.$emit("change", isChecked ? this.trueValue : this.falseValue);
+      }
+    },
+  },
 };
 </script>
 
