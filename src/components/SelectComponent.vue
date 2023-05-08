@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper-select">
     <input
       class="input-select"
       :class="inputClass"
@@ -118,7 +118,7 @@ export default {
 </script>
 
 <style lang="scss">
-.wrapper {
+.wrapper-select {
   position: relative;
   display: flex;
   flex-direction: column;

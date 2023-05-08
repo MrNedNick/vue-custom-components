@@ -44,9 +44,9 @@ export default {
   computed: {
     inputClass() {
       return {
-        'input__disabled': this.disabled,
-        'input__error': this.error,
-        'input__valid': this.valid,
+        input__disabled: this.disabled,
+        input__error: this.error,
+        input__valid: this.valid,
       };
     },
   },
@@ -59,6 +59,9 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  min-width: 374px;
+  min-height: 58px;
+  overflow: hidden;
 }
 .input {
   font-family: "Inter";
@@ -68,8 +71,8 @@ export default {
   line-height: 19px;
   color: #abafb1;
   padding: 20px 16px 5px 16px;
-  width: 374px;
-  height: 28px;
+  min-width: 341px;
+  min-height: 31px;
   border-radius: 8px;
   border: 1px solid #cfd3d4;
   outline: none;

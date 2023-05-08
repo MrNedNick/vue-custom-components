@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="form">
-      <h2>Input</h2>
+      <h2>Input: {{ formData.name }}</h2>
       <InputComponent
         label="Label"
         placeholder="Placeholder"
@@ -9,7 +9,6 @@
         :error="false"
         :valid="false"
         icon=""
-        @updateInput="updateInput"
         v-model="formData.name"
         class="component"
       />
