@@ -147,7 +147,7 @@ export default {
     color: #5e6366;
     border: 1px solid #5570f1;
   }
-  &:focus + .label {
+  &:focus + &__label {
     color: #5570f1;
   }
   &__error,

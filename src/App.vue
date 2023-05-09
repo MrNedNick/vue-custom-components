@@ -1,14 +1,14 @@
 <template>
   <div id="app">
     <div class="form">
-      <h2 class="title">Input: {{ formData.name }}</h2>
+      <h3 class="title">Input: {{ formData.name }}</h3>
       <InputComponent
         label="Label"
         placeholder="Placeholder"
         :autocoplete="autocompleteOptions"
         v-model="formData.name"
       />
-      <h2 class="title">Select: {{ formData.country }}</h2>
+      <h3 class="title">Select: {{ formData.country }}</h3>
       <SelectComponent
         label="Label"
         placeholder="Placeholder"
@@ -16,7 +16,7 @@
         :prepandIcon="prepandIconClass"
         v-model="formData.country"
       />
-      <h2 class="title">Checkboxes: {{ formData.checkboxes }}</h2>
+      <h3 class="title">Checkboxes: {{ formData.checkboxes }}</h3>
       <!-- <CheckboxGroup
         :checkBoxes="formData.checkboxes"
         @onChange="updateCheckbox"
@@ -48,9 +48,14 @@
           v-model="formData.checkboxes"
         />
       </div>
-      <h2 class="title">File Input</h2>
-      <FileInputComponent class="component" />
-      <h2 class="title">Date Picker</h2>
+      <h3 class="title">File Input: {{ formData.file }}</h3>
+      <FileInputComponent
+        v-model="formData.file"
+        label="Upload Logo"
+        prepandIcon="mdi mdi-camera"
+        @input="consoleValue"
+      />
+      <h3 class="title">Date Picker</h3>
       <DatePickerComponent class="component" />
     </div>
   </div>
@@ -80,7 +85,7 @@ export default {
         name: "",
         country: "apple",
         data: "",
-        avatar: "",
+        file: null,
         checkboxes: [],
       },
       prepandIconClass: "mdi mdi-heart-outline",
@@ -95,14 +100,8 @@ export default {
     };
   },
   methods: {
-    updateInput() {
-      console.log(this.formData);
-    },
-    updateSelect(value) {
+    consoleValue(value) {
       console.log(value);
-    },
-    updateCheckbox(value) {
-      this.formData.checkboxes = value;
     },
   },
 };
@@ -112,15 +111,12 @@ export default {
 $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dist/fonts/";
 @import "~material-design-icons-iconfont/src/material-design-icons";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
-}
-body {
-  font-family: "Inter";
 }
 .form {
   display: flex;
@@ -129,10 +125,4 @@ body {
   flex-direction: column;
   margin-bottom: 500px;
 }
-// .component {
-//   margin: 0px;
-// }
-// .title {
-//   display: block;
-// }
 </style>
