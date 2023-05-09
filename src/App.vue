@@ -53,10 +53,16 @@
         v-model="formData.file"
         label="Upload Logo"
         prepandIcon="mdi mdi-camera"
-        @input="consoleValue"
       />
-      <h3 class="title">Date Picker</h3>
-      <DatePickerComponent class="component" />
+      <h3 class="title">Date Picker: {{ formData.date }}</h3>
+      <InputComponent
+        label="Label"
+        placeholder="Placeholder"
+        :autocoplete="autocompleteOptions"
+        v-model="formData.name"
+        :valid="true"
+      />
+      <DatePickerComponent label="Date" v-model="formData.date" />
     </div>
   </div>
 </template>
@@ -83,8 +89,8 @@ export default {
     return {
       formData: {
         name: "",
-        country: "apple",
-        data: "",
+        country: "",
+        date: "",
         file: null,
         checkboxes: [],
       },
