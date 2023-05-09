@@ -1,21 +1,20 @@
 <template>
   <div class="wrapper">
     <input
-      class="input"
+      class="input-component"
       :class="inputClass"
       type="text"
       id="input"
       :placeholder="placeholder"
       @input="onInput($event.target.value)"
-      @keydown.enter.prevent="onEnter"
       :value="value"
     />
-    <label class="input__label" for="input">{{ label }}</label>
-    <p v-if="isShowAutocomplete" class="input__autocomplete">
+    <label class="input-component__label" for="input">{{ label }}</label>
+    <p v-if="isShowAutocomplete" class="input-component__autocomplete">
       {{ filteredOptions[0] }}
     </p>
     <i v-if="valid" class="mdi mdi-check-circle icon__valid"></i>
-    <p v-if="error" class="input__error-text">{{ error }}</p>
+    <p v-if="error" class="input-component__error-text">{{ error }}</p>
   </div>
 </template>
 
@@ -57,9 +56,9 @@ export default {
   computed: {
     inputClass() {
       return {
-        input__disabled: this.disabled,
-        input__error: this.error,
-        input__valid: this.valid,
+        "input-component__disabled": this.disabled,
+        "input-component__error": this.error,
+        "input-component__valid": this.valid,
       };
     },
     isShowAutocomplete() {
@@ -76,12 +75,6 @@ export default {
       }
       this.$emit("input", this.inputValue);
     },
-    onEnter() {
-      if (this.filteredOptions.length > 0) {
-        this.inputValue = this.filteredOptions[0];
-        this.$emit("input", this.inputValue);
-      }
-    },
   },
 };
 </script>
@@ -96,7 +89,7 @@ export default {
   min-height: 58px;
   overflow: hidden;
 }
-.input {
+.input-component {
   font-family: "Inter";
   font-style: normal;
   font-weight: 400;
@@ -109,6 +102,9 @@ export default {
   border-radius: 8px;
   border: 1px solid #cfd3d4;
   outline: none;
+  &:hover {
+    border: 1px solid #5570f1;
+  }
   &__label {
     position: absolute;
     top: 7px;
@@ -155,8 +151,8 @@ export default {
   &__error:not(:placeholder-shown) {
     border: 1px solid #f57e77;
   }
-  &__error + .label,
-  &__error:focus + .label {
+  &__error + &__label,
+  &__error:focus + &__label {
     color: #f57e77;
   }
   &__error-text {
@@ -173,8 +169,8 @@ export default {
   &__valid:not(:placeholder-shown) {
     border: 1px solid #32936f;
   }
-  &__valid + .label,
-  &__valid:focus + .label {
+  &__valid + &__label,
+  &__valid:focus + &__label {
     color: #32936f;
   }
   &__disabled {
@@ -186,8 +182,8 @@ export default {
 .icon__valid {
   position: absolute;
   z-index: 1;
-  top: 15px;
-  left: 340px;
+  top: 18px;
+  left: 337px;
   width: 20px;
   height: 20px;
   font-size: 20px;

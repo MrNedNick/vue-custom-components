@@ -159,6 +159,9 @@ export default {
   border-radius: 8px;
   border: 1px solid #cfd3d4;
   outline: none;
+  &:hover {
+    border:1px solid #5570f1;
+  }
   &__label {
     position: absolute;
     top: 7px;
@@ -232,8 +235,8 @@ export default {
   &__icon-valid {
     position: absolute;
     z-index: 1;
-    top: 15px;
-    left: 320px;
+    top: 18px;
+    left: 315px;
     width: 20px;
     height: 20px;
     font-size: 20px;
@@ -243,8 +246,8 @@ export default {
   &__icon-chevron {
     position: absolute;
     z-index: 1;
-    top: 15px;
-    left: 345px;
+    top: 18px;
+    left: 343px;
     width: 20px;
     height: 25px;
     font-size: 20px;

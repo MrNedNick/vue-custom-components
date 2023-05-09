@@ -55,13 +55,6 @@
         prepandIcon="mdi mdi-camera"
       />
       <h3 class="title">Date Picker: {{ formData.date }}</h3>
-      <InputComponent
-        label="Label"
-        placeholder="Placeholder"
-        :autocoplete="autocompleteOptions"
-        v-model="formData.name"
-        :valid="true"
-      />
       <DatePickerComponent label="Date" v-model="formData.date" />
     </div>
   </div>

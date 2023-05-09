@@ -2,6 +2,7 @@
   <div class="wrapper-date">
     <date-picker
       class="input-date__wrapper"
+      :class="inputClass"
       valueType="MM/DD/YYYY"
       format="MM/DD/YYYY"
       :default-value="value"
@@ -11,6 +12,8 @@
     >
     </date-picker>
     <span class="input-date__label">{{ label }}</span>
+    <i v-if="valid" class="mdi mdi-check-circle input-date__icon-valid"></i>
+    <p v-if="error" class="input-date__error-text">{{ error }}</p>
   </div>
 </template>
 
@@ -30,14 +33,33 @@ export default {
     label: {
       type: String,
     },
+    valid: {
+      type: Boolean,
+    },
+    error: {
+      type: String,
+    },
   },
   components: { DatePicker },
+  computed: {
+    inputClass() {
+      return {
+        input__disabled: this.disabled,
+        input__error: this.error,
+        input__valid: this.valid,
+        input__filled: this.value,
+      };
+    },
+  },
 };
 </script>
 
 <style lang="scss">
 .wrapper-date {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   .mx-datepicker {
     min-width: 375px;
   }
@@ -69,10 +91,62 @@ export default {
   }
   .mx-icon-calendar,
   .mx-icon-clear {
-    margin-right: 8px;
+    margin-right: 5px;
+    color: #5e6366;
+    width: 18px;
+    height: 18px;
   }
 }
-.input-date__wrapper:hover + .input-date__label {
+.mx-datepicker-body,
+.mx-calendar {
+  width: 375px;
+  height: 280px;
+}
+.mx-input:focus + .input-date__label {
   color: #5570f1;
+}
+.input-date__wrapper {
+  &.mx-input:focus + .input-date__wrapper .input-date__label {
+    color: #5570f1;
+  }
+  &.disabled .mx-input {
+    background-color: #f2f4f5;
+    border: 1px solid #dde2e5;
+  }
+  &.input__valid .mx-input {
+    border: 1px solid #32936f;
+  }
+  &.input__valid + .input-date__label {
+    color: #32936f;
+  }
+  &.input__error .mx-input {
+    border: 1px solid #f57e77;
+  }
+  &.input__error + .input-date__label {
+    color: #f57e77;
+  }
+  &.input__filled .mx-input {
+    border: 1px solid #5e6366;
+  }
+}
+.input-date__icon-valid {
+  position: absolute;
+  z-index: 1;
+  top: 18px;
+  left: 315px;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  color: rgba(50, 147, 111);
+  pointer-events: none;
+}
+.input-date__error-text {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #f57e77;
+  margin: 2px 0;
 }
 </style>

@@ -120,15 +120,14 @@ export default {
     color: #5e6366;
     border: 1px solid #5570f1;
   }
-  &:hover + &__label {
-    color: #5570f1;
-  }
+  // &:hover .input-file__label  {
+  //   color: #5570f1;
+  // }
   &__error,
   &__error:hover {
     border: 1px solid #f57e77;
   }
-  &__error + &__label,
-  &__error:hover + &__label {
+  &.input-file__error .input-file__label {
     color: #f57e77;
   }
   &__error-text {
@@ -144,8 +143,7 @@ export default {
   &__valid:hover {
     border: 1px solid #32936f;
   }
-  &__valid + &__label,
-  &__valid:hover + &__label {
+  &.input-file__valid .input-file__label {
     color: #32936f;
   }
   &__disabled {
