@@ -7,13 +7,11 @@
         placeholder="Placeholder"
         :autocoplete="autocompleteOptions"
         v-model="formData.name"
-        class="component"
       />
       <h2 class="title">Select: {{ formData.country }}</h2>
       <SelectComponent
         label="Label"
         placeholder="Placeholder"
-        class="component"
         :items="selectItems"
         :prepandIcon="prepandIconClass"
         v-model="formData.country"

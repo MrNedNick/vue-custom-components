@@ -30,7 +30,7 @@
         :class="{ active: index === activeItemIndex }"
         v-for="(item, index) of itemsCopy"
         :key="index"
-        @click="onClickItem(item)"
+        @mousedown="onClickItem(item)"
       >
         {{ item }}
       </div>
@@ -100,11 +100,9 @@ export default {
       this.$emit("input", item);
     },
     onBlur() {
-      setTimeout(() => {
-        this.inputValue = this.selected;
-        this.itemsCopy = this.items;
-        this.open = false;
-      }, 100);
+      this.inputValue = this.selected;
+      this.itemsCopy = this.items;
+      this.open = false;
     },
     onClickInput() {
       this.open = true;
@@ -240,6 +238,7 @@ export default {
     height: 20px;
     font-size: 20px;
     color: rgba(50, 147, 111);
+    pointer-events: none;
   }
   &__icon-chevron {
     position: absolute;

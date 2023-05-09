@@ -192,5 +192,6 @@ export default {
   height: 20px;
   font-size: 20px;
   color: rgba(50, 147, 111);
+  pointer-events: none;
 }
 </style>
