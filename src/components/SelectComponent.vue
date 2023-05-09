@@ -5,10 +5,11 @@
       :class="inputClass"
       type="text"
       id="input"
+      ref="input"
       :placeholder="placeholder"
       :value="inputValue"
       @click="onClickInput"
-      @blur="inputBlur"
+      @blur="onBlur"
       @input="searchItems($event.target.value)"
       @keydown.arrow-down="onArrowDown"
       @keydown.arrow-up="onArrowUp"
@@ -19,12 +20,11 @@
     <i
       class="mdi mdi-chevron-down input-select__icon-chevron"
       :class="{ rotate: open }"
-      @click="open = !open"
     />
     <i v-if="valid" class="mdi mdi-check-circle input-select__icon-valid"></i>
     <p v-if="!error" class="input-select__helper-text">Helper text goes here</p>
     <p v-if="error" class="input-select__error-text">{{ error }}</p>
-    <div class="select" :class="{ hide: !open }">
+    <div v-if="open" class="select">
       <div
         class="select__item"
         :class="{ active: index === activeItemIndex }"
@@ -99,7 +99,7 @@ export default {
       this.activeItemIndex = -1;
       this.$emit("input", item);
     },
-    inputBlur() {
+    onBlur() {
       setTimeout(() => {
         this.inputValue = this.selected;
         this.itemsCopy = this.items;
@@ -107,7 +107,7 @@ export default {
       }, 100);
     },
     onClickInput() {
-      this.open = !this.open;
+      this.open = true;
       this.inputValue = "";
     },
     searchItems(value) {
@@ -128,12 +128,13 @@ export default {
       }
     },
     onEnter(item) {
-      console.log(item);
-      this.inputValue = this.itemsCopy[this.activeItemIndex];
-      this.selected = this.itemsCopy[this.activeItemIndex];
-      this.open = false;
-      this.activeItemIndex = -1;
-      this.$emit("input", this.inputValue);
+      if (this.activeItemIndex >= 0) {
+        this.inputValue = this.itemsCopy[this.activeItemIndex];
+        this.selected = this.itemsCopy[this.activeItemIndex];
+        this.open = false;
+        this.activeItemIndex = -1;
+        this.$emit("input", this.inputValue);
+      }
     },
   },
 };
@@ -249,7 +250,8 @@ export default {
     height: 25px;
     font-size: 20px;
     color: #5e6366;
-    cursor: pointer;
+    pointer-events: none;
+    cursor: text;
     transition: all 0.2s;
   }
   &__icon-prepand {
@@ -260,6 +262,8 @@ export default {
     width: 25px;
     height: 25px;
     font-size: 24px;
+    pointer-events: none;
+    cursor: text;
     color: #5e6366;
   }
 }
