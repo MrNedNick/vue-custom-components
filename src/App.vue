@@ -34,7 +34,7 @@
       />
       <h3 class="title">Date Picker: {{ formData.date }}</h3>
       <DatePickerComponent label="Date" v-model="formData.date" />
-      <button type="submit">Submit</button>
+      <button type="submit" class="button">Submit</button>
     </form>
   </div>
 </template>
@@ -111,4 +111,29 @@ $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dis
   flex-direction: column;
   margin-bottom: 500px;
 }
+.button {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 17px 16px;
+  width: 375px;
+  height: 58px;
+  background: #5570f1;
+  border-radius: 12px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #ffffff;
+  &:hover {
+    background: #5B6EC6;
+  }
+  &:active {
+    background-color: #5570F1;
+  }
+}
+
 </style>

@@ -7,6 +7,7 @@
       id="input"
       :placeholder="placeholder"
       @input="onInput($event.target.value)"
+      @keydown.enter.prevent="onEnter"
       :value="value"
     />
     <label class="input-component__label" for="input">{{ label }}</label>
@@ -74,6 +75,12 @@ export default {
         );
       }
       this.$emit("input", this.inputValue);
+    },
+    onEnter() {
+      if (this.filteredOptions.length > 0 && this.inputValue !== "") {
+        this.inputValue = this.filteredOptions[0];
+        this.$emit("input", this.inputValue);
+      }
     },
   },
 };
