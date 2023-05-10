@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div class="form">
+    <form @submit.prevent="onSubmit" class="form">
       <h3 class="title">Input: {{ formData.name }}</h3>
       <InputComponent
         label="Label"
@@ -17,34 +17,12 @@
         v-model="formData.country"
       />
       <h3 class="title">Checkboxes: {{ formData.checkboxes }}</h3>
-      <!-- <CheckboxGroup
-        :checkBoxes="formData.checkboxes"
-        @onChange="updateCheckbox"
-      /> -->
       <div class="checkbox-group">
         <CheckboxComponent
-          label="Apple"
-          value="apple"
-          v-model="formData.checkboxes"
-        />
-        <CheckboxComponent
-          label="Banana"
-          value="banana"
-          v-model="formData.checkboxes"
-        />
-        <CheckboxComponent
-          label="Cherry"
-          value="cherry"
-          v-model="formData.checkboxes"
-        />
-        <CheckboxComponent
-          label="Durian"
-          value="durian"
-          v-model="formData.checkboxes"
-        />
-        <CheckboxComponent
-          label="Berry"
-          value="berry"
+          v-for="(item, index) of checkboxesData"
+          :key="index"
+          :label="item.label"
+          :value="item.value"
           v-model="formData.checkboxes"
         />
       </div>
@@ -56,7 +34,8 @@
       />
       <h3 class="title">Date Picker: {{ formData.date }}</h3>
       <DatePickerComponent label="Date" v-model="formData.date" />
-    </div>
+      <button type="submit">Submit</button>
+    </form>
   </div>
 </template>
 
@@ -66,7 +45,6 @@ import SelectComponent from "./components/SelectComponent.vue";
 import FileInputComponent from "./components/FileInputComponent.vue";
 import DatePickerComponent from "./components/DatePickerComponent.vue";
 import CheckboxComponent from "./components/CheckboxComponent.vue";
-import CheckboxGroup from "./components/CheckboxGroup.vue";
 
 export default {
   name: "App",
@@ -76,7 +54,6 @@ export default {
     FileInputComponent,
     DatePickerComponent,
     CheckboxComponent,
-    CheckboxGroup,
   },
   data() {
     return {
@@ -89,6 +66,13 @@ export default {
       },
       prepandIconClass: "mdi mdi-heart-outline",
       selectItems: ["apple", "banana", "cherry", "durian", "elderberry"],
+      checkboxesData: [
+        { label: "Apple", value: "apple" },
+        { label: "Banana", value: "banana" },
+        { label: "Cherry", value: "cherry" },
+        { label: "Durian", value: "durian" },
+        { label: "Elderberry", value: "elderberry" },
+      ],
       autocompleteOptions: [
         "apple",
         "banana",
@@ -101,6 +85,9 @@ export default {
   methods: {
     consoleValue(value) {
       console.log(value);
+    },
+    onSubmit() {
+      console.log(this.formData);
     },
   },
 };
