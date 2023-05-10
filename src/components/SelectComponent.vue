@@ -160,7 +160,7 @@ export default {
   border: 1px solid #cfd3d4;
   outline: none;
   &:hover {
-    border:1px solid #5570f1;
+    border: 1px solid #5570f1;
   }
   &__label {
     position: absolute;
@@ -183,6 +183,9 @@ export default {
     font-weight: 400;
     color: #5e6366;
     border: 1px solid #5e6366;
+  }
+  &:not(:placeholder-shown):hover {
+    border: 1px solid #5570f1;
   }
   &:focus {
     color: #5e6366;

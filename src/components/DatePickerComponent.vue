@@ -9,9 +9,13 @@
       :disabled="disabled"
       :value="value"
       @input="$emit('input', $event)"
+      @focus="isFocus = true"
+      @blur="isFocus = false"
     >
     </date-picker>
-    <span class="input-date__label">{{ label }}</span>
+    <span class="input-date__label" :class="{ 'active-label': isFocus }">
+      {{ label }}
+    </span>
     <i v-if="valid" class="mdi mdi-check-circle input-date__icon-valid"></i>
     <p v-if="error" class="input-date__error-text">{{ error }}</p>
   </div>
@@ -41,6 +45,11 @@ export default {
     },
   },
   components: { DatePicker },
+  data() {
+    return {
+      isFocus: false,
+    };
+  },
   computed: {
     inputClass() {
       return {
@@ -102,13 +111,13 @@ export default {
   width: 375px;
   height: 280px;
 }
-.mx-input:focus + .input-date__label {
-  color: #5570f1;
+.mx-input:focus {
+  border: 1px solid #5570f1 !important;
+}
+.mx-input:hover {
+  border: 1px solid #5570f1 !important;
 }
 .input-date__wrapper {
-  &.mx-input:focus + .input-date__wrapper .input-date__label {
-    color: #5570f1;
-  }
   &.disabled .mx-input {
     background-color: #f2f4f5;
     border: 1px solid #dde2e5;
@@ -148,5 +157,8 @@ export default {
   line-height: 15px;
   color: #f57e77;
   margin: 2px 0;
+}
+.input-date__label.active-label {
+  color: #5570f1;
 }
 </style>

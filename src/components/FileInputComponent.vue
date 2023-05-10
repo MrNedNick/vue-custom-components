@@ -120,9 +120,6 @@ export default {
     color: #5e6366;
     border: 1px solid #5570f1;
   }
-  // &:hover .input-file__label  {
-  //   color: #5570f1;
-  // }
   &__error,
   &__error:hover {
     border: 1px solid #f57e77;
