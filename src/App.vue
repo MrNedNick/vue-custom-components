@@ -1,22 +1,31 @@
 <template>
   <div id="app">
-    <form @submit.prevent="onSubmit" class="form">
-      <h3 class="title">Input: {{ formData.name }}</h3>
+    <form @submit.prevent="checkForm" class="form">
       <InputComponent
-        label="Label"
-        placeholder="Placeholder"
+        label="Name"
+        placeholder="Enter your name"
         :autocoplete="autocompleteOptions"
         v-model="formData.name"
+        :error="errors.name"
+        class="component"
       />
-      <h3 class="title">Select: {{ formData.country }}</h3>
+      <InputComponent
+        label="Email"
+        placeholder="Enter your email"
+        :autocoplete="autocompleteOptions"
+        v-model="formData.email"
+        :error="errors.email"
+        class="component"
+      />
       <SelectComponent
         label="Label"
         placeholder="Placeholder"
         :items="selectItems"
         :prepandIcon="prepandIconClass"
         v-model="formData.country"
+        :error="errors.country"
+        class="component"
       />
-      <h3 class="title">Checkboxes: {{ formData.checkboxes }}</h3>
       <div class="checkbox-group">
         <CheckboxComponent
           v-for="(item, index) of checkboxesData"
@@ -24,16 +33,22 @@
           :label="item.label"
           :value="item.value"
           v-model="formData.checkboxes"
+          :error="errors.checkboxes"
         />
       </div>
-      <h3 class="title">File Input: {{ formData.file }}</h3>
       <FileInputComponent
         v-model="formData.file"
+        :error="errors.file"
         label="Upload Logo"
         prepandIcon="mdi mdi-camera"
+        class="component"
       />
-      <h3 class="title">Date Picker: {{ formData.date }}</h3>
-      <DatePickerComponent label="Date" v-model="formData.date" />
+      <DatePickerComponent
+        label="Date"
+        v-model="formData.date"
+        :error="errors.date"
+        class="component"
+      />
       <button type="submit" class="button">Submit</button>
     </form>
   </div>
@@ -59,10 +74,19 @@ export default {
     return {
       formData: {
         name: "",
+        email: "",
         country: "",
         date: "",
         file: null,
         checkboxes: [],
+      },
+      errors: {
+        name: "",
+        email: "",
+        country: "",
+        date: "",
+        filte: "",
+        checkboxes: "",
       },
       prepandIconClass: "mdi mdi-heart-outline",
       selectItems: ["apple", "banana", "cherry", "durian", "elderberry"],
@@ -82,12 +106,46 @@ export default {
       ],
     };
   },
+  // watch: {
+  //   formData: {
+  //     deep: true,
+  //     handler() {
+  //       this.checkForm();
+  //     },
+  //   },
+  // },
   methods: {
-    consoleValue(value) {
-      console.log(value);
+    // consoleValue(value) {
+    //   console.log(value);
+    // },
+    checkForm() {
+      this.errors = {};
+      if (!this.formData.name.length) {
+        this.errors.name = "Name required!";
+      }
+      if (!this.formData.email.length) {
+        this.errors.email = "Email required!";
+      } else if (!this.validEmail(this.formData.email)) {
+        this.errors.email = "Valid email required.";
+      }
+      if (!this.formData.country.length) {
+        this.errors.country = "Country required!";
+      }
+      if (this.formData.file?.size > 50000) {
+        this.errors.file = "Max size of image 50KB!";
+      }
+      if (!this.formData.date.length) {
+        this.errors.date = "Date required!";
+      }
+      if (!Object.keys(this.errors).length) {
+        console.log(this.formData);
+        console.log("checkForm");
+      }
     },
-    onSubmit() {
-      console.log(this.formData);
+    validEmail(email) {
+      var re =
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     },
   },
 };
@@ -129,11 +187,13 @@ $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dis
   line-height: 24px;
   color: #ffffff;
   &:hover {
-    background: #5B6EC6;
+    background: #5b6ec6;
   }
   &:active {
-    background-color: #5570F1;
+    background-color: #5570f1;
   }
 }
-
+.component {
+  margin-bottom: 20px;
+}
 </style>
