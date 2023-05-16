@@ -1,10 +1,12 @@
 <template>
   <div>
+    <p>test</p>
     <label class="checkbox__wrapper">
       {{ label }}
       <input
         class="checkbox__input"
         type="checkbox"
+        :item="item"
         :value="value"
         :checked="isChecked"
         @change="updateInput"
@@ -25,12 +27,14 @@ export default {
     value: {
       type: String,
     },
+    item: {
+      type: String,
+    },
     modelValue: {
       default: "",
     },
     label: {
       type: String,
-      required: true,
     },
     trueValue: {
       default: true,

@@ -39,6 +39,7 @@
 </template>
 
 <script>
+// import rules
 export default {
   name: "InputComponent",
   props: {
@@ -68,6 +69,14 @@ export default {
       type: String,
     },
   },
+  watch: {
+    error(value) {
+      value.forEach(rule => {
+        validate(rule, this.value, this.label)
+      });
+
+    }
+  }
   data() {
     return {
       open: false,
