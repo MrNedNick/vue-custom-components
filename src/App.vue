@@ -6,41 +6,41 @@
         placeholder="Enter your name"
         :autocoplete="autocompleteOptions"
         v-model="formData.name"
-        :error="errors.name"
-        class="component"
-      />
-      <InputComponent
-        label="Second name"
-        placeholder="Enter your email"
-        :autocoplete="autocompleteOptions"
-        v-model="formData.email"
-        :error="errors.email"
-        class="component"
-      />
-      <InputComponent
-        label="Email"
-        placeholder="Enter your email"
-        :autocoplete="autocompleteOptions"
-        v-model="formData.email"
-        :error="errors.email"
-        class="component"
-      />
-      <SelectComponent
-        label="Label"
-        placeholder="Placeholder"
-        :items="selectItems"
-        :prepandIcon="prepandIconClass"
-        v-model="formData.country"
-        :error="errors.country"
-        class="component"
-      />
-      <SelectComponent
-        label="Label"
-        placeholder="Placeholder"
-        :items="selectItems"
-        :prepandIcon="prepandIconClass"
-        v-model="formData.country"
         :error="['required', 'min:5']"
+        class="component"
+      />
+      <InputComponent
+        label="surname"
+        placeholder="Enter your email"
+        :autocoplete="autocompleteOptions"
+        v-model="formData.surname"
+        :error="['required', 'min:5']"
+        class="component"
+      />
+      <InputComponent
+        label="nickName"
+        placeholder="Enter your email"
+        :autocoplete="autocompleteOptions"
+        v-model="formData.nickName"
+        :error="['required', 'min:5']"
+        class="component"
+      />
+      <SelectComponent
+        label="Label"
+        placeholder="Placeholder"
+        :items="selectItems"
+        :prepandIcon="prepandIconClass"
+        v-model="formData.country"
+        :error="['required']"
+        class="component"
+      />
+      <SelectComponent
+        label="Label"
+        placeholder="Placeholder"
+        :items="selectItems"
+        :prepandIcon="prepandIconClass"
+        v-model="formData.country"
+        :error="['required']"
         class="component"
       />
       <FileInputComponent
@@ -93,7 +93,7 @@ import SelectComponent from "./components/SelectComponent.vue";
 import FileInputComponent from "./components/FileInputComponent.vue";
 import DatePickerComponent from "./components/DatePickerComponent.vue";
 import CheckboxGroup from "./components/CheckboxGroup.vue";
-import CheckboxComponent from './components/CheckboxComponent.vue';
+import CheckboxComponent from "./components/CheckboxComponent.vue";
 
 export default {
   name: "App",
@@ -109,6 +109,8 @@ export default {
     return {
       formData: {
         name: "",
+        surname: "",
+        nickName: "",
         email: "",
         country: "",
         date: "",
@@ -149,32 +151,7 @@ export default {
   //   },
   // },
   methods: {
-    // consoleValue(value) {
-    //   console.log(value);
-    // },
     checkForm() {
-      function validation(rule, value, name) {
-        // TODO: parse rule param
-        const rules = {
-          required: function(e) {
-            return !e ? `${name} is required` : '';
-          },
-          min: function(params.min) {}
-        };
-        return rules[rule](value);
-      }
-      function validation(rulesName, value, name) {
-        // TODO: parse rule param
-        // TODO: should handle few errors
-        const rules = {
-          required: function(e) {
-            return !e ? `${name} is required` : '';
-          },
-          min: function(params.min) {}
-        };
-        return rules[rule](value);
-      }
-
       this.errors = {};
       if (!this.formData.name.length) {
         this.errors.name = "Name is required!";

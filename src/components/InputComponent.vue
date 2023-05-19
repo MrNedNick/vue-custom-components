@@ -15,11 +15,13 @@
       {{ filteredOptions[0] }}
     </p>
     <i v-if="valid" class="mdi mdi-check-circle icon__valid"></i>
-    <p v-if="error" class="input-component__error-text">{{ error }}</p>
+    <p v-if="newError" class="input-component__error-text">{{ newError }}</p>
   </div>
 </template>
 
 <script>
+import { validate } from "./validationRules.js";
+
 export default {
   name: "InputComponent",
   props: {
@@ -33,7 +35,7 @@ export default {
       type: String,
     },
     error: {
-      type: String,
+      type: Array,
     },
     valid: {
       type: Boolean,
@@ -49,7 +51,15 @@ export default {
     return {
       inputValue: "",
       filteredOptions: [],
+      newError: "",
     };
+  },
+  watch: {
+    error(newValue, oldValue) {
+      newValue.forEach((rule) => {
+        this.newError = validate(rule, this.value, this.label);
+      });
+    },
   },
   mounted() {
     this.inputValue = this.value;
@@ -58,7 +68,7 @@ export default {
     inputClass() {
       return {
         "input-component__disabled": this.disabled,
-        "input-component__error": this.error,
+        "input-component__error": this.newError,
         "input-component__valid": this.valid,
       };
     },
@@ -82,6 +92,22 @@ export default {
         this.$emit("input", this.inputValue);
       }
     },
+    // validate(rule, value, name) {
+    //   // TODO: parse rule param
+    //   const [ruleName, ruleParams] = rule.split(":");
+    //   const params = [ruleName, ruleParams ? ruleParams.split(",") : []];
+    //   // console.log(params);
+    //   const rules = {
+    //     required: function(val) {
+    //       return !val ? `${name} is required` : "";
+    //     },
+    //     min: function(val) {
+    //       return val.length >= params.ruleParams ? `${name} is min` : "";
+    //     },
+    //   };
+    //   console.log(rules.required(value))
+    // return rules[rule](value);
+    // },
   },
 };
 </script>

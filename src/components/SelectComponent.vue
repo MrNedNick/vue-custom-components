@@ -39,7 +39,8 @@
 </template>
 
 <script>
-// import rules
+import validate from './validationRules.js';
+
 export default {
   name: "InputComponent",
   props: {
@@ -57,7 +58,7 @@ export default {
       type: String,
     },
     error: {
-      type: String,
+      type: Array,
     },
     valid: {
       type: Boolean,
@@ -69,14 +70,14 @@ export default {
       type: String,
     },
   },
-  watch: {
-    error(value) {
-      value.forEach(rule => {
-        validate(rule, this.value, this.label)
-      });
-
-    }
-  }
+  // watch: {
+  //   error(value) {
+  //     value.forEach(rule => {
+  //       console.log(validate(rule, this.value, this.label))
+  //     });
+  //     console.log
+  //   }
+  // },
   data() {
     return {
       open: false,
