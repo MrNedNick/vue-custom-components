@@ -6,7 +6,7 @@
         placeholder="Enter your name"
         :autocoplete="autocompleteOptions"
         v-model="formData.name"
-        :error="['required', 'min:5']"
+        :rules="['required', 'min:5', 'max:7']"
         class="component"
       />
       <InputComponent
@@ -14,7 +14,7 @@
         placeholder="Enter your email"
         :autocoplete="autocompleteOptions"
         v-model="formData.surname"
-        :error="['required', 'min:5']"
+        :rules="['required','min:2', 'max:5']"
         class="component"
       />
       <InputComponent
@@ -22,7 +22,7 @@
         placeholder="Enter your email"
         :autocoplete="autocompleteOptions"
         v-model="formData.nickName"
-        :error="['required', 'min:5']"
+        :rules="['required', 'min:3']"
         class="component"
       />
       <SelectComponent

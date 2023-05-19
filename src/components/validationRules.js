@@ -1,17 +1,21 @@
 export function validate(rule, value, name) {
   const [ruleName, ruleParams] = rule.split(":");
-  const params = [ruleName, ruleParams ? ruleParams.split(",") : []];
-  // console.log(params);
+  // const params = [ruleName, ruleParams ? ruleParams : null];
+  // const params = rule.split(":");
+  // console.log(rule)
   const rules = {
     required: function (val) {
-      return !val ? `${name} is required` : "";
+      return !val ? `${name} is required` : '';
     },
     min: function (val) {
-      return val.length >= params.ruleParams ? `${name} is min` : "";
+      return val.length < ruleParams ? `Min length ${ruleParams}!` : '';
+    },
+    max: function (val) {
+      return val.length > ruleParams ? `Max length ${ruleParams}!` : '';
     },
   };
   // console.log(rules.required(value))
-  return rules.required(value);
+  return rules[ruleName](value);
 }
 // parseRule(rule) {
 //   const [ruleName, ruleParams] = rule.split(':')
