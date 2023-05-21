@@ -42,7 +42,6 @@ export default {
   },
   watch: {
     value() {
-      console.log('file::', this.value)
       if (this.rules) {
         this.rules.some((rule) => {
           this.error = validate(rule, this.value, this.label);

@@ -72,12 +72,7 @@ export default {
   },
   watch: {
     value() {
-      if (this.rules) {
-        this.rules.some((rule) => {
-          this.error = validate(rule, this.value, this.label);
-          if (this.error !== "") return rule;
-        });
-      }
+      this.validateInput();
     },
   },
   data() {
@@ -105,6 +100,14 @@ export default {
     this.itemsCopy = this.items;
   },
   methods: {
+    validateInput() {
+      if (this.rules) {
+        this.rules.some((rule) => {
+          this.error = validate(rule, this.value, this.label);
+          if (this.error !== "") return rule;
+        });
+      }
+    },
     onClickItem(item) {
       this.selected = item;
       this.inputValue = item;
@@ -113,6 +116,7 @@ export default {
       this.$emit("input", item);
     },
     onBlur() {
+      this.validateInput();
       this.inputValue = this.selected;
       this.itemsCopy = this.items;
       this.open = false;

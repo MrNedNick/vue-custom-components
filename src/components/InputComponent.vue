@@ -6,6 +6,7 @@
       type="text"
       id="input"
       :placeholder="placeholder"
+      @blur="validateInput"
       @input="onInput($event.target.value)"
       @keydown.enter.prevent="onEnter"
       :value="value"
@@ -56,12 +57,7 @@ export default {
   },
   watch: {
     value() {
-      if (this.rules) {
-        this.rules.some((rule) => {
-          this.error = validate(rule, this.value, this.label);
-          if (this.error !== "") return rule;
-        });
-      }
+      this.validateInput();
     },
   },
   mounted() {
@@ -93,6 +89,14 @@ export default {
       if (this.filteredOptions.length > 0 && this.inputValue !== "") {
         this.inputValue = this.filteredOptions[0];
         this.$emit("input", this.inputValue);
+      }
+    },
+    validateInput() {
+      if (this.rules) {
+        this.rules.some((rule) => {
+          this.error = validate(rule, this.value, this.label);
+          if (this.error !== "") return rule;
+        });
       }
     },
   },

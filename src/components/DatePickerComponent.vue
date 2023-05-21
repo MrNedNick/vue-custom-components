@@ -10,7 +10,7 @@
       :value="value"
       @input="$emit('input', $event)"
       @focus="isFocus = true"
-      @blur="isFocus = false"
+      @blur="onBlur"
     >
     </date-picker>
     <span class="input-date__label" :class="{ 'active-label': isFocus }">
@@ -48,12 +48,7 @@ export default {
   components: { DatePicker },
   watch: {
     value() {
-      if (this.rules) {
-        this.rules.some((rule) => {
-          this.error = validate(rule, this.value, this.label);
-          if (this.error !== "") return rule;
-        });
-      }
+      this.validateInput();
     },
   },
   data() {
@@ -70,6 +65,20 @@ export default {
         input__valid: this.valid,
         input__filled: this.value,
       };
+    },
+  },
+  methods: {
+    onBlur() {
+      this.validateInput();
+      this.isFocus = false;
+    },
+    validateInput() {
+      if (this.rules) {
+        this.rules.some((rule) => {
+          this.error = validate(rule, this.value, this.label);
+          if (this.error !== "") return rule;
+        });
+      }
     },
   },
 };

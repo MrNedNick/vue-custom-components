@@ -85,8 +85,8 @@ export default {
         date: "",
         file: null,
         checkboxes: [
-          { label: "Submit terms and conditions", value: true },
-          { label: "I agree to receive emails", value: false },
+          { label: "Submit terms and conditions", value: false },
+          { label: "I agree to receive emails", value: true },
         ],
       },
       errors: {
@@ -150,7 +150,7 @@ export default {
 $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dist/fonts/";
 @import "~material-design-icons-iconfont/src/material-design-icons";
 body {
-  background: rgb(71, 71, 71);
+  // background: rgb(71, 71, 71);
 }
 #app {
   font-family: "Inter";
