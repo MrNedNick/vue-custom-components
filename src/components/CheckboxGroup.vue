@@ -6,9 +6,9 @@
         <input
           class="checkbox__input"
           type="checkbox"
-          :id="item.index"
+          :id="item.label"
           :checked="item.value"
-          @change="item.value = $event.target.checked"
+          @change="updateCheckbox(index, $event.target.checked)"
         />
         <span class="checkbox__checkmark"></span>
       </label>
@@ -17,10 +17,8 @@
 </template>
 
 <script>
-import CheckboxComponent from "./CheckboxComponent.vue";
 export default {
   name: "CheckboxComponent",
-  components: { CheckboxComponent },
   props: {
     value: {
       type: Array,
@@ -28,7 +26,6 @@ export default {
   },
   mounted() {
     this.checkboxes = this.value;
-    console.log(this.checkboxes);
   },
   data() {
     return {
@@ -36,12 +33,13 @@ export default {
     };
   },
   methods: {
+    updateCheckbox(index, checked) {
+      this.checkboxes[index].value = checked;
+      this.updateInput();
+    },
     updateInput() {
       this.$emit("update:modelValue", this.checkboxes);
     },
   },
 };
 </script>
-
-<style>
-</style>
