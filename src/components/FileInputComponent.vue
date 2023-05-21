@@ -9,7 +9,7 @@
           <span class="input-file__file-size">({{ fileSize }})</span>
         </div>
         <i v-if="valid" class="mdi mdi-check-circle input-file__icon-valid"></i>
-        <input class="input-file__input" type="file" @change="onChange" />
+        <input class="input-file__input" type="file" accept="image/*" @change="onChange" />
       </div>
     </label>
     <p v-if="error" class="input-file__error-text">{{ error }}</p>
