@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import validate from './validationRules.js';
+import { validate } from "./validationRules.js";
 
 export default {
   name: "InputComponent",
@@ -57,7 +57,7 @@ export default {
     placeholder: {
       type: String,
     },
-    error: {
+    rules: {
       type: Array,
     },
     valid: {
@@ -70,14 +70,16 @@ export default {
       type: String,
     },
   },
-  // watch: {
-  //   error(value) {
-  //     value.forEach(rule => {
-  //       console.log(validate(rule, this.value, this.label))
-  //     });
-  //     console.log
-  //   }
-  // },
+  watch: {
+    value() {
+      if (this.rules) {
+        this.rules.some((rule) => {
+          this.error = validate(rule, this.value, this.label);
+          if (this.error !== "") return rule;
+        });
+      }
+    },
+  },
   data() {
     return {
       open: false,
@@ -85,6 +87,7 @@ export default {
       inputValue: "",
       itemsCopy: [],
       activeItemIndex: -1,
+      error: "",
     };
   },
   computed: {

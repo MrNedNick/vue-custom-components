@@ -1,8 +1,5 @@
 export function validate(rule, value, name) {
   const [ruleName, ruleParams] = rule.split(":");
-  // const params = [ruleName, ruleParams ? ruleParams : null];
-  // const params = rule.split(":");
-  // console.log(rule)
   const rules = {
     required: function (val) {
       return !val ? `${name} is required` : '';
@@ -13,40 +10,21 @@ export function validate(rule, value, name) {
     max: function (val) {
       return val.length > ruleParams ? `Max length ${ruleParams}!` : '';
     },
+    email: function (val) {
+      return validEmail(val) ? '' : 'Enter valid Email!';
+    },
+    maxSize: function (val) {
+      return val.size > (ruleParams * 10e5) ? `File size should be maximun ${ruleParams} MB` : '';
+    },
+    minSize: function (val) {
+      return val.size < (ruleParams * 10e5) ? `File size should be minimum ${ruleParams} MB` : '';
+    },
   };
-  // console.log(rules.required(value))
   return rules[ruleName](value);
 }
-// parseRule(rule) {
-//   const [ruleName, ruleParams] = rule.split(':')
-//   return [ruleName, ruleParams ? ruleParams.split(',') : []]
-// },
-// function validation(rulesName, value, name) {
-//   // TODO: parse rule param
-//   // TODO: should handle few errors
-//   const rules = {
-//     required: function(e) {
-//       return !e ? `${name} is required` : '';
-//     },
-//     // min: function(params[min]) {}
-//   };
-//   return rules[rule](value);
-// }
 
-
-// export function validateRequired(value) {
-//   return value.trim() !== '';
-// }
-
-// export function validateMinLength(value, minLength) {
-//   return value.length >= minLength;
-// }
-
-// export function validateMaxLength(value, maxLength) {
-//   return value.length <= maxLength;
-// }
-
-// export function validateEmail(value) {
-//   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//   return emailRegex.test(value);
-// }
+function validEmail(email) {
+  var re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(email);
+}

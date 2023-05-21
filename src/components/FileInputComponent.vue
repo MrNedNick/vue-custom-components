@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { validate } from "./validationRules.js";
+
 export default {
   props: {
     value: {
@@ -25,8 +27,8 @@ export default {
     label: {
       type: String,
     },
-    error: {
-      type: String,
+    rules: {
+      type: Array,
     },
     valid: {
       type: Boolean,
@@ -37,6 +39,22 @@ export default {
     prepandIcon: {
       type: String,
     },
+  },
+  watch: {
+    value() {
+      console.log('file::', this.value)
+      if (this.rules) {
+        this.rules.some((rule) => {
+          this.error = validate(rule, this.value, this.label);
+          if (this.error !== "") return rule;
+        });
+      }
+    },
+  },
+  data() {
+    return {
+      error: "",
+    };
   },
   computed: {
     inputClass() {

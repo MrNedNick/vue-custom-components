@@ -24,6 +24,7 @@
 <script>
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
+import { validate } from "./validationRules.js";
 
 export default {
   name: "DatePickerComponent",
@@ -40,14 +41,25 @@ export default {
     valid: {
       type: Boolean,
     },
-    error: {
-      type: String,
+    rules: {
+      type: Array,
     },
   },
   components: { DatePicker },
+  watch: {
+    value() {
+      if (this.rules) {
+        this.rules.some((rule) => {
+          this.error = validate(rule, this.value, this.label);
+          if (this.error !== "") return rule;
+        });
+      }
+    },
+  },
   data() {
     return {
       isFocus: false,
+      error: "",
     };
   },
   computed: {

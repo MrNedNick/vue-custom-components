@@ -51,15 +51,17 @@ export default {
     return {
       inputValue: "",
       filteredOptions: [],
-      error: '',
+      error: "",
     };
   },
   watch: {
-    inputValue(newValue, oldValue) {
-      this.rules.some((rule) => {
-        this.error = validate(rule, this.value, this.label);
-        if (this.error !== "") return rule;
-      });
+    value() {
+      if (this.rules) {
+        this.rules.some((rule) => {
+          this.error = validate(rule, this.value, this.label);
+          if (this.error !== "") return rule;
+        });
+      }
     },
   },
   mounted() {

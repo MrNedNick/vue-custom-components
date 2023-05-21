@@ -1,15 +1,14 @@
 <template>
   <div>
-    <div v-for="(item, index) of value" :key="index">
+    <div v-for="(item, index) of checkboxes" :key="index">
       <label class="checkbox__wrapper" :for="item.label">
         {{ item.label }}
         <input
           class="checkbox__input"
           type="checkbox"
-          :value="item.value"
           :id="item.index"
           :checked="item.value"
-          @change="updateInput"
+          @change="item.value = $event.target.checked"
         />
         <span class="checkbox__checkmark"></span>
       </label>
@@ -27,11 +26,20 @@ export default {
       type: Array,
     },
   },
+  mounted() {
+    this.checkboxes = this.value;
+    console.log(this.checkboxes);
+  },
+  data() {
+    return {
+      checkboxes: [],
+    };
+  },
   methods: {
     updateInput() {
-      console.log('item')
-    }
-  }
+      this.$emit("update:modelValue", this.checkboxes);
+    },
+  },
 };
 </script>
 

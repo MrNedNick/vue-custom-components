@@ -10,19 +10,19 @@
         class="component"
       />
       <InputComponent
-        label="surname"
+        label="Surname"
         placeholder="Enter your email"
         :autocoplete="autocompleteOptions"
         v-model="formData.surname"
-        :rules="['required','min:2', 'max:5']"
+        :rules="['required', 'min:3', 'max:5']"
         class="component"
       />
       <InputComponent
-        label="nickName"
+        label="Email"
         placeholder="Enter your email"
         :autocoplete="autocompleteOptions"
-        v-model="formData.nickName"
-        :rules="['required', 'min:3']"
+        v-model="formData.email"
+        :rules="['required', 'email']"
         class="component"
       />
       <SelectComponent
@@ -31,28 +31,12 @@
         :items="selectItems"
         :prepandIcon="prepandIconClass"
         v-model="formData.country"
-        :error="['required']"
-        class="component"
-      />
-      <SelectComponent
-        label="Label"
-        placeholder="Placeholder"
-        :items="selectItems"
-        :prepandIcon="prepandIconClass"
-        v-model="formData.country"
-        :error="['required']"
+        :rules="['required']"
         class="component"
       />
       <FileInputComponent
         v-model="formData.file"
-        :error="errors.file"
-        label="Upload Logo"
-        prepandIcon="mdi mdi-camera"
-        class="component"
-      />
-      <FileInputComponent
-        v-model="formData.file"
-        :error="errors.file"
+        :rules="['required', 'maxSize:1', 'minSize:0.1']"
         label="Upload text"
         prepandIcon="mdi mdi-camera"
         class="component"
@@ -60,28 +44,14 @@
       <DatePickerComponent
         label="Date"
         v-model="formData.date"
-        :error="errors.date"
+        :rules="['required']"
         class="component"
       />
-      <!-- <CheckboxComponent
-        v-model="formData.checkboxes"
-        :error="errors.checkboxes"
-      /> -->
       <CheckboxGroup
         v-model="formData.checkboxes"
-        :error="errors.checkboxes"
+        :rules="errors.checkboxes"
         class="component"
       />
-      <!-- <div class="checkbox-group">
-        <CheckboxComponent
-          v-for="(item, index) of checkboxesData"
-          :key="index"
-          :label="item.label"
-          :value="item.value"
-          v-model="formData.checkboxes"
-          :error="errors.checkboxes"
-        />
-      </div> -->
       <button type="submit" class="button">Submit</button>
     </form>
   </div>
@@ -110,17 +80,13 @@ export default {
       formData: {
         name: "",
         surname: "",
-        nickName: "",
         email: "",
         country: "",
         date: "",
         file: null,
         checkboxes: [
-          { label: "Apple", value: false },
-          { label: "Banana", value: true },
-          { label: "Cherry", value: false },
-          { label: "Durian", value: false },
-          { label: "Elderberry", value: false },
+          { label: "Submit terms and conditions", value: true },
+          { label: "I agree to receive emails", value: false },
         ],
       },
       errors: {
@@ -153,38 +119,28 @@ export default {
   methods: {
     checkForm() {
       this.errors = {};
-      if (!this.formData.name.length) {
-        this.errors.name = "Name is required!";
-      } else if (this.formData.name.length < 4) {
-        this.errors.name = "Min length 4!";
-      } else if (this.formData.name.length > 10) {
-        this.errors.name = "Max length 10!";
+      if (!this.formData.name) {
+        this.formData.name = undefined;
       }
-      if (!this.formData.email.length) {
-        this.errors.email = "Email is required!";
-      } else if (!this.validEmail(this.formData.email)) {
-        this.errors.email = "Enter valid email.";
+      if (!this.formData.surname) {
+        this.formData.surname = undefined;
       }
-      if (!this.formData.country.length) {
-        this.errors.country = "Country is required!";
+      if (!this.formData.email) {
+        this.formData.email = undefined;
+      }
+      if (!this.formData.country) {
+        this.formData.country = undefined;
+      }
+      if (!this.formData.date) {
+        this.formData.date = undefined;
       }
       if (!this.formData.file) {
-        this.errors.file = "Logo is required!";
-      } else if (this.formData.file?.size > 50000) {
-        this.errors.file = "Max size of image 50KB!";
-      }
-      if (!this.formData.date.length) {
-        this.errors.date = "Date is required!";
+        this.formData.file = undefined;
       }
       if (!Object.keys(this.errors).length) {
         console.log(this.formData);
         console.log("checkForm");
       }
-    },
-    validEmail(email) {
-      var re =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
     },
   },
 };
@@ -193,6 +149,9 @@ export default {
 <style lang="scss">
 $material-design-icons-font-directory-path: "~material-design-icons-iconfont/dist/fonts/";
 @import "~material-design-icons-iconfont/src/material-design-icons";
+body {
+  background: rgb(71, 71, 71);
+}
 #app {
   font-family: "Inter";
   -webkit-font-smoothing: antialiased;
