@@ -35,8 +35,17 @@
         class="component"
       />
       <FileInputComponent
-        v-model="formData.file"
+        v-model="formData.image"
         :rules="['required', 'maxSize:1', 'minSize:0.1']"
+        accept="image/*"
+        label="Upload image"
+        prepandIcon="mdi mdi-camera"
+        class="component"
+      />
+      <FileInputComponent
+        v-model="formData.text"
+        :rules="['required', 'maxSize:1', 'minSize:0.1']"
+        accept=".doc,.docx,.xml,.pdf"
         label="Upload text"
         prepandIcon="mdi mdi-camera"
         class="component"
@@ -83,9 +92,10 @@ export default {
         email: "",
         country: "",
         date: "",
-        file: null,
+        image: null,
+        text: null,
         checkboxes: [
-          { label: "Submit terms and conditions", value: false },
+          { label: "I agree to the terms and conditions", value: false },
           { label: "I agree to receive emails", value: true },
         ],
       },
@@ -134,7 +144,10 @@ export default {
       if (!this.formData.date) {
         this.formData.date = undefined;
       }
-      if (!this.formData.file) {
+      if (!this.formData.image) {
+        this.formData.file = undefined;
+      }
+      if (!this.formData.text) {
         this.formData.file = undefined;
       }
       if (!Object.keys(this.errors).length) {
