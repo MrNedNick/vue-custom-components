@@ -58,7 +58,6 @@
       />
       <CheckboxGroup
         v-model="formData.checkboxes"
-        :rules="errors.checkboxes"
         class="component"
       />
       <button type="submit" class="button">Submit</button>
@@ -145,10 +144,10 @@ export default {
         this.formData.date = undefined;
       }
       if (!this.formData.image) {
-        this.formData.file = undefined;
+        this.formData.image = undefined;
       }
       if (!this.formData.text) {
-        this.formData.file = undefined;
+        this.formData.text = undefined;
       }
       if (!Object.keys(this.errors).length) {
         console.log(this.formData);
